@@ -15,7 +15,7 @@
             android:name=".ProdutoActivity"
             android:exported="false" />
         <activity
-            android:name=".FragmentosActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".CadastroActivity"
