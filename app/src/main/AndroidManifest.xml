@@ -12,7 +12,10 @@
         android:theme="@style/Theme.OutletExpressMovel"
         tools:targetApi="31">
         <activity
-            android:name=".activity_loja"
+            android:name=".CompraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LojaActivity"
             android:exported="false" />
         <activity
             android:name=".ProdutoActivity"
