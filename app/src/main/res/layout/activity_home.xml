@@ -12,10 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         app:itemHorizontalTranslationEnabled="false"
+        app:itemIconSize="32dp"
         app:itemIconTint="@color/white"
         app:labelVisibilityMode="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/home_btn_menu" />
 
