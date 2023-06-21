@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context=".CadastroActivity">
 
     <ImageView
@@ -26,7 +27,7 @@
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/primaryColor"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -41,7 +42,7 @@
         android:ems="10"
         android:hint="Nome"
         android:inputType="textPersonName"
-        android:textColorHint="@color/primaryColor"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress3" />
@@ -56,7 +57,7 @@
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
-        android:textColorHint="@color/primaryColor"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
@@ -71,7 +72,7 @@
         android:ems="10"
         android:hint="Confirmar senha"
         android:inputType="textPassword"
-        android:textColorHint="@color/primaryColor"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
@@ -81,7 +82,9 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@color/white"
         android:text="entrar"
+        android:textColor="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
