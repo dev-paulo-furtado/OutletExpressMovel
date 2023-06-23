@@ -13,4 +13,17 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+      <style name="Theme.OutletExpressMovelNoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+          <!-- Primary brand color. -->
+          <item name="colorPrimary">@color/primaryColor</item>
+          <item name="colorPrimaryVariant">@color/purple_700</item>
+          <item name="colorOnPrimary">@color/white</item>
+          <!-- Secondary brand color. -->
+          <item name="colorSecondary">@color/secondaryColor</item>
+          <item name="colorSecondaryVariant">@color/teal_700</item>
+          <item name="colorOnSecondary">@color/black</item>
+          <!-- Status bar color. -->
+          <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+          <!-- Customize your theme here. -->
+      </style>
 </resources>
