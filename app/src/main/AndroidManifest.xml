@@ -22,6 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".ProdutoActivity"
+            android:label="Produtos"
+            android:theme="@style/Theme.OutletExpressMovelNoActionBar"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
