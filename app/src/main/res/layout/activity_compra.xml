@@ -34,13 +34,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:text="*CAROUSEL HORIZONTAL DOS PRODUTOS*"
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    android:id="@+id/carousel_compras"
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    app:showTopShadow="false"
+                    app:showBottomShadow="false"
+                    app:showIndicator="true"
+                    app:showNavigationButtons="false"
+                    app:indicatorMargin="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

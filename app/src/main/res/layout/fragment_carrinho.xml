@@ -51,6 +51,7 @@
         android:layout_marginStart="8dp"
         android:text="R$ 1000"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
