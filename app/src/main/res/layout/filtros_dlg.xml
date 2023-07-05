@@ -65,12 +65,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar2"
-                    android:layout_width="242dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:id="@+id/ratingBar3"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -106,19 +107,25 @@
                         android:id="@+id/radioButton4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Abaixo de 10%" />
+                        android:text="Até 20%" />
 
                     <RadioButton
                         android:id="@+id/radioButton5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Abaixo de 50%" />
+                        android:text="Até 50%" />
 
                     <RadioButton
                         android:id="@+id/radioButton6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="50% ou mais" />
+                        android:text="Até 70% " />
+
+                    <RadioButton
+                        android:id="@+id/radioButton7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Acima de 70%" />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
