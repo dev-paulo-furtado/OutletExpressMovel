@@ -37,7 +37,7 @@
         android:background="@color/white"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Meus Pedidos"
+        android:text="Meus Produtos Comprados"
         android:textAlignment="center"
         android:textColor="@color/secondaryColor"
         android:textSize="20sp"
