@@ -30,46 +30,45 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
                     android:text="Preço"
                     android:textColor="@color/primaryColor"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SeekBar
                     android:id="@+id/seekBar"
-                    android:layout_width="203dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView11"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@+id/textView24"
+                    app:layout_constraintStart_toEndOf="@+id/textView8" />
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="TextView"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Min."
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/seekBar"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
                 <TextView
                     android:id="@+id/textView24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="TextView"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Max."
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/seekBar"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,6 +83,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Classificação dos produtos"
                     android:textColor="@color/primaryColor"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -93,9 +93,9 @@
                     style="@android:style/Widget.DeviceDefault.Light.RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -113,6 +113,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Desconto"
                     android:textColor="@color/primaryColor"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
