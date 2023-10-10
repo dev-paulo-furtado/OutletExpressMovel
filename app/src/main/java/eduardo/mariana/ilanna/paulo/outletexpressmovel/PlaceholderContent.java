@@ -1,4 +1,4 @@
-package eduardo.mariana.ilanna.paulo.outletexpressmovel.placeholder;
+package eduardo.mariana.ilanna.paulo.outletexpressmovel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

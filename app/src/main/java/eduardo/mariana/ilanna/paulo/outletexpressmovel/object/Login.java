@@ -1,4 +1,4 @@
-package eduardo.mariana.ilanna.paulo.outletexpressmovel.Login;
+package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 
 public class Login {
     String email;

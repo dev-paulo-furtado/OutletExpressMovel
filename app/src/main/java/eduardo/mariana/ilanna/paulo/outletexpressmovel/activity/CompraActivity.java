@@ -1,8 +1,10 @@
-package eduardo.mariana.ilanna.paulo.outletexpressmovel;
+package eduardo.mariana.ilanna.paulo.outletexpressmovel.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 
 public class CompraActivity extends AppCompatActivity {
 

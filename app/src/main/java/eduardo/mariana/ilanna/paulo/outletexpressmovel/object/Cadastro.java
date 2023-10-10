@@ -1,4 +1,4 @@
-package eduardo.mariana.ilanna.paulo.outletexpressmovel.Cadastro;
+package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 
 public class Cadastro {
     String email;
