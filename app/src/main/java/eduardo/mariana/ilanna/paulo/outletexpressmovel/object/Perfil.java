@@ -1,15 +1,13 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 
-public class Cadastro {
+public class Perfil {
     String email;
     String nome;
     String senha;
-    String senha_confirm;
 
-    public Cadastro(String email, String nome, String senha, String senha_confirm) {
+    public Perfil(String email, String nome, String senha) {
         this.email = email;
         this.nome = nome;
         this.senha = senha;
-        this.senha_confirm = senha_confirm;
     }
 }

@@ -19,4 +19,12 @@ public class Compra {
         this.total = total;
     }
 
+    //metodo comprar() com parametro de ArrayList, serve para "comprar agora" ou "comprar tudo" do carrinhp
+
+    //metodo calcularFrete()
+
+    //metodo calcularTotal(), igual ao metodo do Carrinho
+
+    //metodo finalizarCompra()
+
 }
