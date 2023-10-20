@@ -21,4 +21,8 @@ public class Produto {
         this.link_empresa = link_empresa;
         this.comentarios = comentarios;
     }
+
+    public int getId() {
+        return id;
+    }
 }
