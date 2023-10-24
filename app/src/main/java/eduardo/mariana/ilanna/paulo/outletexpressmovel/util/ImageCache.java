@@ -11,9 +11,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.example.produtos.util.Config;
-import com.example.produtos.util.HttpRequest;
-import com.example.produtos.util.Util;
 
 import java.io.File;
 import java.io.IOException;
