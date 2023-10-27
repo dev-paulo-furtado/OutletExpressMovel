@@ -23,7 +23,7 @@ public class ProductsRepository {
     public boolean login(String email, String senha) {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "C:\\Users\\20211tiimi0044\\Downloads\\conectaMobilePHP\\login.php", "POST", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "login.php", "POST", "UTF-8");
         httpRequest.setBasicAuth(email, senha);
 
         String result = "";

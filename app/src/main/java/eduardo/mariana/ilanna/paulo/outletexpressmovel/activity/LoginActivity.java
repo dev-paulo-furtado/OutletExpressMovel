@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Primeiro obtemos os dados de login e senha digitados pelo usuário
+                // Primeiro obtemos os dados de email e senha digitados pelo usuário
                 EditText etLogin = findViewById(R.id.etEmail);
                 final String login = etLogin.getText().toString();
 
