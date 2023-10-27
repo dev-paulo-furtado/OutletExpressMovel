@@ -2,8 +2,11 @@ package eduardo.mariana.ilanna.paulo.outletexpressmovel.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,7 +14,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.HomeFragment;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PerfilFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -31,14 +38,32 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     //dar id aos itens do menu
                     //conferir se a pessoa esta logada, antes de ir pro carrinho ou tela de perfil
-                    case R.id.gridViewOp:
-                        GridViewFragment gridViewFragment = GridViewFragment.newInstance();
-                        setFragment(gridViewFragment);
+                    case R.id.opCarrinho:
+                        if(Config.getLogin(HomeActivity.this).isEmpty()) {
+                            Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else {
+                            CarrinhoFragment carrinhoFragment = CarrinhoFragment.newInstance();
+                            setFragment(carrinhoFragment);
+                        }
                         break;
                     //configurando a navegacao para a visualizacao em list
-                    case R.id.listViewOp:
-                        ListViewFragment listViewFragment = ListViewFragment.newInstance();
-                        setFragment(listViewFragment);
+                    case R.id.opHome:
+                        HomeFragment homeFragment = HomeFragment.newInstance();
+                        setFragment(homeFragment);
+                        break;
+                    case R.id.opPerfil:
+                        if(Config.getLogin(HomeActivity.this).isEmpty()) {
+                            Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else {
+                            PerfilFragment perfilFragment = PerfilFragment.newInstance();
+                            setFragment(perfilFragment);
+                        }
                         break;
                 }
                 return true;
@@ -46,5 +71,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragContainer, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+
+
 }

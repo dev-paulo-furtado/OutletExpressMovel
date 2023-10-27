@@ -48,6 +48,10 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

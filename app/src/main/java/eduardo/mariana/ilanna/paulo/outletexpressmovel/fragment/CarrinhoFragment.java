@@ -48,6 +48,10 @@ public class CarrinhoFragment extends Fragment {
         return fragment;
     }
 
+    public static CarrinhoFragment newInstance() {
+        return new CarrinhoFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

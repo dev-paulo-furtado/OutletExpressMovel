@@ -48,6 +48,10 @@ public class PerfilFragment extends Fragment {
         return fragment;
     }
 
+    public static PerfilFragment newInstance() {
+        return new PerfilFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

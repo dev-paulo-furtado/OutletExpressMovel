@@ -6,7 +6,8 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 
 public class HomeViewModel extends ViewModel {
 
-    int navigationOpSelected = R.id.gridViewOp;
+    //acho que a variavel armazena o fragmento padrao a ser carregado
+    int navigationOpSelected = R.id.opHome;
 
     //metodo para pegar a opcao de visualizacao selecionada
     public int getNavigationOpSelected() {

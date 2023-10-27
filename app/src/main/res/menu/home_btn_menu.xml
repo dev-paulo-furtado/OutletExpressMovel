@@ -2,7 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:icon="@drawable/baseline_shopping_bag_24" />
-    <item android:icon="@drawable/baseline_home_24" />
-    <item android:icon="@drawable/baseline_person_24" />
+    <item
+        android:id="@+id/opCarrinho"
+        android:icon="@drawable/baseline_shopping_bag_24" />
+    <item
+        android:id="@+id/opHome"
+        android:icon="@drawable/baseline_home_24" />
+    <item
+        android:id="@+id/opPerfil"
+        android:icon="@drawable/baseline_person_24" />
 </menu>
