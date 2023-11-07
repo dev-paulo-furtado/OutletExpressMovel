@@ -17,13 +17,14 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.CadastroViewModel;
 
 public class CadastroActivity extends AppCompatActivity {
-    CadastroActivity cadastroActivity;
+    CadastroViewModel cadastroViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+        //retorna para a tela de login caso o usuario clique na TextView
         TextView tvLogin = findViewById(R.id.tvLogin);
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,9 +36,9 @@ public class CadastroActivity extends AppCompatActivity {
         });
 
         // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
-        cadastroActivity = new ViewModelProvider(this).get(CadastroViewModel.class);
+        cadastroViewModel = new ViewModelProvider(this).get(CadastroViewModel.class);
 
-        // Quando o usuário clicar no bptão cadastrar
+        // Quando o usuário clicar no botão cadastrar
         Button btnRegister =  findViewById(R.id.btnCadastro);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +49,17 @@ public class CadastroActivity extends AppCompatActivity {
                 // usuário clicou no botão cadastrar. Se o campo está vazio, exibimos uma mensagem para o
                 // usuário indicando que ele não preencheu o campo e retornamos da função sem fazer
                 // mais nada.
-                EditText etEmail =  findViewById(R.id.etEmail);
-                final String novoEmail = etEmail.getText().toString();
+                EditText etNovoEmail =  findViewById(R.id.etNovoEmail);
+                final String novoEmail = etNovoEmail.getText().toString();
                 if(novoEmail.isEmpty()) {
                     Toast.makeText(CadastroActivity.this, "Campo de login não preenchido", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                EditText etNovoNome =  findViewById(R.id.etNovoNome);
+                final String novoNome = etNovoNome.getText().toString();
+                if(novoNome.isEmpty()) {
+                    Toast.makeText(CadastroActivity.this, "Campo de nome não preenchido", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -80,7 +88,7 @@ public class CadastroActivity extends AppCompatActivity {
                 //
                 // O método de register retorna um LiveData, que na prática é um container que avisa
                 // quando o resultado do servidor chegou.
-                LiveData<Boolean> resultLD = cadastroActivity.register(novoEmail, novaSenha);
+                LiveData<Boolean> resultLD = cadastroViewModel.register(novoEmail, novaSenha, novoNome);
 
                 // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado indicando
                 // se o cadastro deu certo ou não será guardado dentro do LiveData. Neste momento o
@@ -94,7 +102,9 @@ public class CadastroActivity extends AppCompatActivity {
                         // finalizamos a Activity, voltamos para a tela de login.
                         if(aBoolean) {
                             Toast.makeText(CadastroActivity.this, "Novo usuario registrado com sucesso", Toast.LENGTH_LONG).show();
-                            finish();
+                            // Navega para tela principal
+                            Intent i = new Intent(CadastroActivity.this, LoginActivity.class);
+                            startActivity(i);
                         }
                         else {
                             // Se o cadastro não deu certo, apenas continuamos na tela de cadastro e

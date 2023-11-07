@@ -20,13 +20,13 @@ public class ProductsRepository {
     }
 
 
-    public boolean register(String newLogin, String newPassword, String newName) {
+    public boolean register(String novoEmail, String novaSenha, String novoNome) {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
         HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "php/movel/registrar.php", "POST", "UTF-8");
-        httpRequest.addParam("novo_email", newLogin);
-        httpRequest.addParam("nova_senha", newPassword);
-        httpRequest.addParam("novo_nome", newName);
+        httpRequest.addParam("novo_email", novoEmail);
+        httpRequest.addParam("nova_senha", novaSenha);
+        httpRequest.addParam("novo_nome", novoNome);
 
         String result = "";
         try {
