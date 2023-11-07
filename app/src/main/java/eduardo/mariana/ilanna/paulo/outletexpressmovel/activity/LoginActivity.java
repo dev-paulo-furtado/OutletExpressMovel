@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -45,6 +46,17 @@ public class LoginActivity extends AppCompatActivity {
         // referente a essa Activity
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
+        //mudando para a activity de cadastro ao clicar na TextView
+        TextView tvCadastro = findViewById(R.id.tvCadastro);
+        tvCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, CadastroActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         // Quando o usuário clicar no botão de login
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 EditText etPassword = findViewById(R.id.etSenha);
                 final String password = etPassword.getText().toString();
+
 
                 // O ViewModel possui o método login, que envia as informações para o servidor web.
                 // O servidor web recebe as infos e verifica se estão corretas. Se sim, siginifca

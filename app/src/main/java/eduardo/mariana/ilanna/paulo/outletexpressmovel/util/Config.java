@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 public class Config {
 
     // endereço base do servidor web
-    public static String PRODUCTS_APP_URL = "https://productifes-dispmoveisbsi.b4a.run/";
+    //public static String PRODUCTS_APP_URL = "https://productifes-dispmoveisbsi.b4a.run/";
+
+    public static String PRODUCTS_APP_URL = "https://outletexpress-abdv1vl7.b4a.run/";
 
     /**
      * Salva o login no espaço reservado da app
