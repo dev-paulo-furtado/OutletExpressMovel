@@ -235,7 +235,7 @@ public class ProductsRepository {
     }
 
     //metodo para obter os produtos de quando o usuario clica em uma categoria
-    public List<Produto> categoryProducts(Integer limit, Integer offSet, String categoria) {
+    public List<Produto> categorizeProducts(Integer limit, Integer offSet, String categoria) {
 
         // cria a lista de produtos incicialmente vazia, que será retornada como resultado
         List<Produto> productsList = new ArrayList<>();
@@ -333,6 +333,7 @@ public class ProductsRepository {
         return productsList;
     }
 
+    /*
     //metodo para obter as categorias de produtos que existem no BD
     public List<> categoryProducts() {
 
@@ -430,6 +431,6 @@ public class ProductsRepository {
         }
 
         return productsList;
-    }
+    }*/
 
 }

@@ -2,11 +2,19 @@ package eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 
@@ -66,5 +74,71 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageCarousel carousel = view.findViewById(R.id.carousel_categorias);
+
+// Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
+        carousel.registerLifecycle(getViewLifecycleOwner());
+
+        List<CarouselItem> list = new ArrayList<>();
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        list.add(
+                new CarouselItem(
+                        R.drawable.cateletronicos,
+                        "Eletrônicos"
+                )
+        );
+
+        carousel.setScalingFactor(1.0f);
+
+        carousel.setData(list);
+
     }
 }

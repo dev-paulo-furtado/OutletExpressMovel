@@ -2,7 +2,11 @@ package eduardo.mariana.ilanna.paulo.outletexpressmovel.model;
 
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Categoria;
 
 public class HomeViewModel extends ViewModel {
 
@@ -17,5 +21,15 @@ public class HomeViewModel extends ViewModel {
     //metodo para estabelecer a opcao de navegacao selecionada
     public void setNavigationOpSelected(int navigationOpSelected) {
         this.navigationOpSelected = navigationOpSelected;
+    }
+
+    public List<Categoria> getCategorias() {
+        List<Categoria> categorias = new ArrayList<>();
+
+        Categoria catEletronico = new Categoria("Eletrônicos", R.drawable.cateletronicos);
+        categorias.add(catEletronico);
+
+        return  categorias;
+
     }
 }
