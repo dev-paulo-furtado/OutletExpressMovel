@@ -5,10 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CategoriasAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +36,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    CategoriasAdapter categoriasAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -80,9 +84,17 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        CategoriasAdapter categoriasAdapter = new CategoriasAdapter();
+        RecyclerView rvCatergorias = (RecyclerView) view.findViewById(R.id.rvCategorias);
+        rvCatergorias.setAdapter(categoriasAdapter);
+        rvCatergorias.setLayoutManager();
+
+
+        /*
         ImageCarousel carousel = view.findViewById(R.id.carousel_categorias);
 
-// Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
+        // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
         carousel.registerLifecycle(getViewLifecycleOwner());
 
         List<CarouselItem> list = new ArrayList<>();
@@ -139,6 +151,7 @@ public class HomeFragment extends Fragment {
         carousel.setScalingFactor(1.0f);
 
         carousel.setData(list);
+        */
 
     }
 }
