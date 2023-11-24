@@ -16,6 +16,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.HomeFragment;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.OfertasFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PerfilFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
@@ -29,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final HomeViewModel vm = new ViewModelProvider(this).get(HomeViewModel.class);
+        OfertasFragment ofertasFragment = OfertasFragment.newInstance();
+        setFragment(ofertasFragment,R.id.flOfertas);
 
         bottomNavigationView = findViewById(R.id.btmNavView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -46,13 +49,13 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         else {
                             CarrinhoFragment carrinhoFragment = CarrinhoFragment.newInstance();
-                            setFragment(carrinhoFragment);
+                            setFragment(carrinhoFragment, R.id.fragContainer);
                         }
                         break;
                     //configurando a navegacao para a visualizacao em list
                     case R.id.opHome:
                         HomeFragment homeFragment = HomeFragment.newInstance();
-                        setFragment(homeFragment);
+                        setFragment(homeFragment, R.id.fragContainer);
                         break;
                     case R.id.opPerfil:
                         if(Config.getLogin(HomeActivity.this).isEmpty()) {
@@ -62,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         else {
                             PerfilFragment perfilFragment = PerfilFragment.newInstance();
-                            setFragment(perfilFragment);
+                            setFragment(perfilFragment, R.id.fragContainer);
                         }
                         break;
                 }
@@ -73,9 +76,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment, int idFrameLayout) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragContainer, fragment);
+        fragmentTransaction.replace(idFrameLayout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

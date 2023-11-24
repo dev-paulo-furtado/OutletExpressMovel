@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CategoriasAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Categoria;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,9 +42,11 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     CategoriasAdapter categoriasAdapter;
+    ArrayList<Categoria> categorias;
 
     public HomeFragment() {
         // Required empty public constructor
+
     }
 
     /**
@@ -84,74 +91,16 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-        CategoriasAdapter categoriasAdapter = new CategoriasAdapter();
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+        CategoriasAdapter categoriasAdapter = new CategoriasAdapter(homeActivity, mViewModel.getCategorias());
         RecyclerView rvCatergorias = (RecyclerView) view.findViewById(R.id.rvCategorias);
         rvCatergorias.setAdapter(categoriasAdapter);
-        rvCatergorias.setLayoutManager();
+        rvCatergorias.setHasFixedSize(true);
+        rvCatergorias.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
-
-        /*
-        ImageCarousel carousel = view.findViewById(R.id.carousel_categorias);
-
-        // Register lifecycle. For activity this will be lifecycle/getLifecycle() and for fragments it will be viewLifecycleOwner/getViewLifecycleOwner().
-        carousel.registerLifecycle(getViewLifecycleOwner());
-
-        List<CarouselItem> list = new ArrayList<>();
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        list.add(
-                new CarouselItem(
-                        R.drawable.cateletronicos,
-                        "Eletrônicos"
-                )
-        );
-
-        carousel.setScalingFactor(1.0f);
-
-        carousel.setData(list);
-        */
+        homeActivity.setFragment(OfertasFragment.newInstance(), R.id.flOfertas);
 
     }
 }

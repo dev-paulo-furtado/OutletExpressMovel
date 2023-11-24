@@ -26,8 +26,11 @@ public class HomeViewModel extends ViewModel {
     public List<Categoria> getCategorias() {
         List<Categoria> categorias = new ArrayList<>();
 
-        Categoria catEletronico = new Categoria("Eletrônicos", R.drawable.cateletronicos);
-        categorias.add(catEletronico);
+        categorias.add(new Categoria("Roupa", R.drawable.cateletronicos));
+        categorias.add(new Categoria("Calçada", R.drawable.cateletronicos));
+        categorias.add(new Categoria("Eletrodoméstico", R.drawable.cateletronicos));
+        categorias.add(new Categoria("Eletrônico", R.drawable.cateletronicos));
+        categorias.add(new Categoria("Móvel", R.drawable.cateletronicos));
 
         return  categorias;
 
