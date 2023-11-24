@@ -82,7 +82,7 @@ public class PesquisaFragment extends Fragment {
         HomeActivity homeActivity = (HomeActivity) getActivity();
 
         HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
-        PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, mViewModel.getProdutos());
+        PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, mViewModel.getProdutos(this.categoria));
 
         RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
         rvPesquisa.setAdapter(pesquisaAdapter);

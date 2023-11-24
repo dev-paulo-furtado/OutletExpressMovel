@@ -88,7 +88,7 @@ public class ProductsPagingSource extends ListenableFuturePagingSource<Integer, 
             public LoadResult<Integer, Produto> call() {
                 List<Produto> productsList = null;
                 // envia uma requisição para o servidor web pedindo por uma nova página de dados (bloco de produtos)
-                productsList = productsRepository.categorizeProducts(loadParams.getLoadSize(), finalOffSet, categoria);
+                //productsList = productsRepository.searchProducts(loadParams.getLoadSize(), finalOffSet);
                 Integer nextKey = null;
                 if(productsList.size() >= loadParams.getLoadSize()) {
                     nextKey = finalNextPageNumber + 1;
