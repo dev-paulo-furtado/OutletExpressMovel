@@ -217,7 +217,7 @@ public class ProductsRepository {
                     Produto product = new Produto();
                     product.id = Integer.parseInt(pid);
                     product.nome_produto = name;
-                    product.preco = Float.parseFloat(price);
+                    product.valor_atual = Float.parseFloat(price);
                     product.imagem = img;
 
                     // Adicionamos o objeto product na lista de produtos
@@ -316,7 +316,7 @@ public class ProductsRepository {
                     Produto product = new Produto();
                     product.id = Integer.parseInt(pid);
                     product.nome_produto = name;
-                    product.preco = Float.parseFloat(price);
+                    product.valor_atual = Float.parseFloat(price);
                     product.imagem = img;
 
                     // Adicionamos o objeto product na lista de produtos

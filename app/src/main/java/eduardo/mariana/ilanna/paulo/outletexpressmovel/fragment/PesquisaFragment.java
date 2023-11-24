@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CategoriasAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,11 +77,18 @@ public class PesquisaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        assert;
         //chamar metodo que ira preencher a lista de produtos
-        RecyclerView rvPesquisa = getView().findViewById(R.id.rvPesquisa);
+        //quando o PesquisaFragment for criado, essa funcao vai ser chamada e setar o adapter da rvPesquisa
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+        PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, mViewModel.getProdutos());
+
+        RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
+        rvPesquisa.setAdapter(pesquisaAdapter);
         rvPesquisa.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
 
     }
 }
