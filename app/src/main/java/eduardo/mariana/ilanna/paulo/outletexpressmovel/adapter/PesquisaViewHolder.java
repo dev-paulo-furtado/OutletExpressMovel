@@ -5,8 +5,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProdutoViewHolder extends RecyclerView.ViewHolder {
-    public ProdutoViewHolder(@NonNull View itemView) {
+public class PesquisaViewHolder extends RecyclerView.ViewHolder {
+    public PesquisaViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 }

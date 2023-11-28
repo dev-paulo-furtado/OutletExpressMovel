@@ -33,7 +33,7 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(homeActivity);
         View v = inflater.inflate(R.layout.itemlist_horizontal,parent,false);
-        return new ProdutoViewHolder(v);
+        return new PesquisaViewHolder(v);
     }
 
     @Override
