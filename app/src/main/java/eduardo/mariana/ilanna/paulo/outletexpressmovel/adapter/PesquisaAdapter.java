@@ -66,7 +66,7 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(homeActivity, ProdutoActivity.class);
-                i.putExtra("produto_id",produto.id);
+                i.putExtra("produto_id",produto.codigo);
                 homeActivity.startActivity(i);
                 homeActivity.finish();
             }

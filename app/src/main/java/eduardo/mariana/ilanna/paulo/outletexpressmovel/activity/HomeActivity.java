@@ -30,8 +30,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final HomeViewModel vm = new ViewModelProvider(this).get(HomeViewModel.class);
-        OfertasFragment ofertasFragment = OfertasFragment.newInstance();
-        setFragment(ofertasFragment,R.id.flOfertas);
 
         bottomNavigationView = findViewById(R.id.btmNavView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -73,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        bottomNavigationView.setSelectedItemId(R.id.opHome);
     }
 
 

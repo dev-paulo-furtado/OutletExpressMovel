@@ -134,7 +134,7 @@ public class ProductsRepository {
      * @param offSet a posição a partir da qual a página de produtos deve começar
      * @return lista de produtos
      */
-
+    /*
     //metodo para obter os produtos de quando o usuario pesquisa algo
     public List<Produto> searchProducts(Integer limit, Integer offSet, String pesquisa) {
 
@@ -208,17 +208,17 @@ public class ProductsRepository {
                     JSONObject jProduct = jsonArray.getJSONObject(i);
 
                     // Obtemos os dados de um produtos via JSONObject
-                    String pid = jProduct.getString("id");
+                    String pid = jProduct.getString("codigo");
                     String name = jProduct.getString("nome");
-                    String price = jProduct.getString("preco");
-                    String img = jProduct.getString("img");
+                    String price = jProduct.getString("valor_atual");
+                    String imagem = jProduct.getString("imagem");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
                     Produto product = new Produto();
-                    product.id = Integer.parseInt(pid);
+                    product.codigo = Integer.parseInt(pid);
                     product.nome_produto = name;
                     product.valor_atual = Float.parseFloat(price);
-                    product.imagem = img;
+                    product.imagem = imagem;
 
                     // Adicionamos o objeto product na lista de produtos
                     productsList.add(product);
@@ -233,6 +233,7 @@ public class ProductsRepository {
 
         return productsList;
     }
+    */
 
     //metodo para obter os produtos de quando o usuario clica em uma categoria
     public List<Produto> categorizeProducts(/*Integer limit, Integer offSet, */String categoria) {
@@ -242,8 +243,8 @@ public class ProductsRepository {
 
         // Para obter a lista de produtos é preciso estar logado. Então primeiro otemos o login e senha
         // salvos na app.
-        String login = Config.getLogin(context);
-        String password = Config.getPassword(context);
+        //String login = Config.getLogin(context);
+        //String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
         HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"php/movel/listar_produtos.php", "GET", "UTF-8");
@@ -255,7 +256,7 @@ public class ProductsRepository {
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
         // o qual verificará se o login e senha batem com aquilo que está no BD. Somente depois dessa
         // verificação de autenticação é que o servidor web irá realizar esta ação.
-        httpRequest.setBasicAuth(login, password);
+        //httpRequest.setBasicAuth(login, password);
 
         String result = "";
         try {
@@ -307,17 +308,17 @@ public class ProductsRepository {
                     JSONObject jProduct = jsonArray.getJSONObject(i);
 
                     // Obtemos os dados de um produtos via JSONObject
-                    String pid = jProduct.getString("id");
+                    String pid = jProduct.getString("codigo");
                     String name = jProduct.getString("nome");
-                    String price = jProduct.getString("preco");
-                    String img = jProduct.getString("img");
+                    String price = jProduct.getString("valor_atual");
+                    String imagem = jProduct.getString("imagem");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
                     Produto product = new Produto();
-                    product.id = Integer.parseInt(pid);
+                    product.codigo = Integer.parseInt(pid);
                     product.nome_produto = name;
                     product.valor_atual = Float.parseFloat(price);
-                    product.imagem = img;
+                    product.imagem = imagem;
 
                     // Adicionamos o objeto product na lista de produtos
                     productsList.add(product);

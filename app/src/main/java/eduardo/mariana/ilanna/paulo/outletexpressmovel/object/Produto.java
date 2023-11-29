@@ -3,7 +3,7 @@ package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 import java.util.ArrayList;
 
 public class Produto {
-    public int id;
+    public int codigo;
     public String imagem;
     public String nome_produto;
     public float valor_atual;
@@ -12,8 +12,8 @@ public class Produto {
     public String link_empresa;
     public ArrayList<Comentario> comentarios;
 
-    public Produto(int id, String imagem, String nome_produto, float valor_atual, float avaliacao, float desconto, String link_empresa, ArrayList<Comentario> comentarios) {
-        this.id = id;
+    public Produto(int codigo, String imagem, String nome_produto, float valor_atual, float avaliacao, float desconto, String link_empresa, ArrayList<Comentario> comentarios) {
+        this.codigo = codigo;
         this.imagem = imagem;
         this.nome_produto = nome_produto;
         this.valor_atual = valor_atual;
@@ -27,6 +27,6 @@ public class Produto {
     }
 
     public int getId() {
-        return id;
+        return codigo;
     }
 }
