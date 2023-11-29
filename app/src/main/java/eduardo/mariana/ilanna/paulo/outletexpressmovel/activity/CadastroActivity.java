@@ -52,7 +52,7 @@ public class CadastroActivity extends AppCompatActivity {
                 EditText etNovoEmail =  findViewById(R.id.etNovoEmail);
                 final String novoEmail = etNovoEmail.getText().toString();
                 if(novoEmail.isEmpty()) {
-                    Toast.makeText(CadastroActivity.this, "Campo de login não preenchido", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroActivity.this, "Campo email não preenchido", Toast.LENGTH_LONG).show();
                     return;
                 }
 
