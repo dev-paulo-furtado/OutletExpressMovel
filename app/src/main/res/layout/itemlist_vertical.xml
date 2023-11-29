@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imvProduto"
+        android:id="@+id/imvDetalheProduto"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -18,7 +18,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvNomeProduto"
+        android:id="@+id/tvDetalheNomeProduto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,7 +27,7 @@
         android:text="Nome produto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvProduto" />
+        app:layout_constraintTop_toBottomOf="@+id/imvDetalheProduto" />
 
     <TextView
         android:id="@+id/tvValorProduto"
@@ -41,6 +41,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeProduto" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDetalheNomeProduto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

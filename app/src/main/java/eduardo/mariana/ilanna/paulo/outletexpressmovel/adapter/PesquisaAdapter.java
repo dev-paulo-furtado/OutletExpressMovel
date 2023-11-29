@@ -1,7 +1,6 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.ProdutoActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
 public class PesquisaAdapter extends RecyclerView.Adapter {
     public HomeActivity homeActivity;
@@ -45,15 +45,20 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         View v = holder.itemView;
 
         //preenche a imagem do produto
-        ImageView imvProduto = v.findViewById(R.id.imvProduto);
-        imvProduto.setImageURI(Uri.parse(produto.imagem));
+        // preenche o campo de foto
+        int w = (int) homeActivity.getResources().getDimension(R.dimen.thumb_width);
+        int h = (int) homeActivity.getResources().getDimension(R.dimen.thumb_height);
+        ImageView imvProductThumb = holder.itemView.findViewById(R.id.imvDetalheProduto);
+        // somente agora o a imagem é obtida do servidor. Caso a imagem já esteja salva no cache da app,
+        // não baixamos ela de novo
+        ImageCache.loadImageUrlToImageView(homeActivity, produto.imagem, imvProductThumb, w, h);
 
         //preenche o nome do produto
-        TextView tvNomeProduto = v.findViewById(R.id.tvNomeProduto);
+        TextView tvNomeProduto = v.findViewById(R.id.tvDetalheNomeProduto);
         tvNomeProduto.setText(produto.nome_produto);
 
         TextView tvValorProduto = v.findViewById(R.id.tvValorProduto);
-        tvValorProduto.setText(Float.toString(produto.valor_atual));
+        tvValorProduto.setText("R$ " + Float.toString(produto.valor_atual));
 
         RatingBar rbAvaliacaoProduto = v.findViewById(R.id.rbAvaliacaoProduto);
         rbAvaliacaoProduto.setStepSize(0.1f);
@@ -66,7 +71,7 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(homeActivity, ProdutoActivity.class);
-                i.putExtra("produto_id",produto.codigo);
+                i.putExtra("codigo_produto",produto.codigo);
                 homeActivity.startActivity(i);
                 homeActivity.finish();
             }

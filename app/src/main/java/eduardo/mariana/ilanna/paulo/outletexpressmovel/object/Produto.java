@@ -6,13 +6,13 @@ public class Produto {
     public int codigo;
     public String imagem;
     public String nome_produto;
-    public float valor_atual;
+    public String valor_atual;
     public float avaliacao;
     public float desconto;
     public String link_empresa;
-    public ArrayList<Comentario> comentarios;
+    public String nome_empresa;
 
-    public Produto(int codigo, String imagem, String nome_produto, float valor_atual, float avaliacao, float desconto, String link_empresa, ArrayList<Comentario> comentarios) {
+    public Produto(int codigo, String imagem, String nome_produto, String valor_atual, float avaliacao, float desconto, String link_empresa, String nome_empresa) {
         this.codigo = codigo;
         this.imagem = imagem;
         this.nome_produto = nome_produto;
@@ -20,13 +20,10 @@ public class Produto {
         this.avaliacao = avaliacao;
         this.desconto = desconto;
         this.link_empresa = link_empresa;
-        this.comentarios = comentarios;
+        this.nome_empresa = nome_empresa;
     }
 
     public Produto() {
     }
 
-    public int getId() {
-        return codigo;
-    }
 }

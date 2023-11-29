@@ -17,6 +17,7 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.LoginActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.HomeFragment;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PerfilFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PesquisaFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Categoria;
 
@@ -50,14 +51,11 @@ public class CategoriasAdapter extends RecyclerView.Adapter {
         TextView tvDescricao = v.findViewById(R.id.tvDescricao);
         tvDescricao.setText(categoria.descricao);
 
-
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PesquisaFragment pesquisaFragment = PesquisaFragment.newInstance(categoria.descricao,"");
                 homeActivity.setFragment(pesquisaFragment, R.id.flOfertas);
-
-
             }
         });
 

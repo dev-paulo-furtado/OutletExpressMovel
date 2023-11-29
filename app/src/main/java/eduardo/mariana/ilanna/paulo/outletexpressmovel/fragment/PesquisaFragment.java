@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CategoriasAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,18 +82,25 @@ public class PesquisaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
+        rvPesquisa.setLayoutManager(new LinearLayoutManager(getContext()));
+
         //chamar metodo que ira preencher a lista de produtos
         //quando o PesquisaFragment for criado, essa funcao vai ser chamada e setar o adapter da rvPesquisa
         HomeActivity homeActivity = (HomeActivity) getActivity();
 
         HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
-        PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, mViewModel.getProdutos(this.categoria));
 
-        RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
-        rvPesquisa.setAdapter(pesquisaAdapter);
-        rvPesquisa.setLayoutManager(new LinearLayoutManager(getContext()));
+        LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosLD(this.categoria);
+        prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+            @Override
+            public void onChanged(List<Produto> produtos) {
+                PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
+                rvPesquisa.setAdapter(pesquisaAdapter);
+            }
+        });
 
-        homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
+        //homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
 
     }
 }

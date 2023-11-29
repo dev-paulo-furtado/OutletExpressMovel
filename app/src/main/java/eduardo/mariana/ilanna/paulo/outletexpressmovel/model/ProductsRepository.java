@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Comentario;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.HttpRequest;
@@ -334,29 +335,22 @@ public class ProductsRepository {
         return productsList;
     }
 
-    /*
-    //metodo para obter as categorias de produtos que existem no BD
-    public List<> categoryProducts() {
-
-        // cria a lista de produtos incicialmente vazia, que será retornada como resultado
-        List<Produto> productsList = new ArrayList<>();
+    public Produto loadProductDetail(String id) {
 
         // Para obter a lista de produtos é preciso estar logado. Então primeiro otemos o login e senha
         // salvos na app.
-        String login = Config.getLogin(context);
-        String password = Config.getPassword(context);
+        //String login = Config.getLogin(context);
+        //String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"php/movel/categoria_produtos.php", "GET", "UTF-8");
-        httpRequest.addParam("limit", limit.toString());
-        httpRequest.addParam("offset", offSet.toString());
-        httpRequest.addParam("categoria", categoria);
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "detalhes_produto.php", "GET", "UTF-8");
+        httpRequest.addParam("id", id);
 
         // Para esta ação, é preciso estar logado. Então na requisição HTTP setamos o login e senha do
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
         // o qual verificará se o login e senha batem com aquilo que está no BD. Somente depois dessa
         // verificação de autenticação é que o servidor web irá realizar esta ação.
-        httpRequest.setBasicAuth(login, password);
+        //httpRequest.setBasicAuth(login, password);
 
         String result = "";
         try {
@@ -369,22 +363,17 @@ public class ProductsRepository {
             //
             // Em caso de sucesso, será retornada uma String JSON no formato:
             //
-            // {"sucesso":1,
-            //  "produtos":[
-            //          {"id":"7", "nome":"produto 1", "preco":"10.00", "img":"www.imgur.com/img1.jpg"},
-            //          {"id":"8", "nome":"produto 2", "preco":"20.00", "img":"www.imgur.com/img2.jpg"}
-            //       ]
-            // }
+            // {"sucesso":1,"nome":"produto 1","preco":"10.00", "img":"www.imgur.com/img1.jpg", "descricao":"produto 1","criado_em":"2022-10-03 19:43:31.42905","criado_por":"daniel"}
             //
             // Em caso de falha, será retornada uma String JSON no formato:
             //
-            // {"sucesso":0,"erro":"Erro ao obter produtos"}
+            // {"sucesso":0,"erro":"Erro ao obter detalhes do produto"}
             result = Util.inputStream2String(is, "UTF-8");
 
             // Fecha a conexão com o servidor web.
             httpRequest.finish();
 
-            Log.i("HTTP PRODUCTS RESULT", result);
+            Log.i("HTTP DETAILS RESULT", result);
 
             // A classe JSONObject recebe como parâmetro do construtor uma String no formato JSON e
             // monta internamente uma estrutura de dados similar ao dicionário em python.
@@ -393,45 +382,49 @@ public class ProductsRepository {
             // obtem o valor da chave sucesso para verificar se a ação ocorreu da forma esperada ou não.
             int success = jsonObject.getInt("sucesso");
 
-            // Se sucesso igual a 1, os produtos são obtidos da String JSON e adicionados à lista de
-            // produtos a ser retornada como resultado.
+            // Se sucesso igual a 1, os detalhes do produto são obtidos da String JSON e um objeto
+            // do tipo Product é criado para guardar esses dados
             if(success == 1) {
 
-                // A chave produtos é um array de objetos do tipo json (JSONArray), onde cada um desses representa
-                // um produto
-                JSONArray jsonArray = jsonObject.getJSONArray("produtos");
+                // obtém os dados detalhados do produto. A imagem não vem junto. Ela é obtida
+                // separadamente depois, no momento em que precisa ser exibida na app. Isso permite
+                // que os dados trafeguem mais rápido.
+                String name = jsonObject.getString("nome");
+                String price = jsonObject.getString("valor_atual");
+                String img = jsonObject.getString("imagem");
+                String desconto = jsonObject.getString("desconto");
+                String avaliacao = jsonObject.getString("avaliacao");
+                String link_empresa = jsonObject.getString("link_empresa");
+                String nome_empresa = jsonObject.getString("nome_empresa");
 
-                // Cada elemento do JSONArray é um JSONObject que guarda os dados de um produto
-                for(int i = 0; i < jsonArray.length(); i++) {
+                // Cria um objeto Product e guarda os detalhes do produto dentro dele.
+                Produto p = new Produto();
+                p.nome_produto = name;
+                p.codigo = Integer.parseInt(id);
+                p.valor_atual = price;
+                p.imagem = img;
+                p.desconto = Float.parseFloat(desconto);
+                p.avaliacao = Float.parseFloat(avaliacao);
+                p.link_empresa = link_empresa;
+                p.nome_empresa = nome_empresa;
 
-                    // Obtemos o JSONObject referente a um produto
-                    JSONObject jProduct = jsonArray.getJSONObject(i);
-
-                    // Obtemos os dados de um produtos via JSONObject
-                    String pid = jProduct.getString("id");
-                    String name = jProduct.getString("nome");
-                    String price = jProduct.getString("preco");
-                    String img = jProduct.getString("img");
-
-                    // Criamo um objeto do tipo Product para guardar esses dados
-                    Produto product = new Produto();
-                    product.id = Integer.parseInt(pid);
-                    product.nome_produto = name;
-                    product.preco = Float.parseFloat(price);
-                    product.imagem = img;
-
-                    // Adicionamos o objeto product na lista de produtos
-                    productsList.add(product);
-                }
+                return p;
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("HTTP RESULT", result);
         }
+        return null;
+    }
 
-        return productsList;
-    }*/
+    public List<Comentario> loadComments(String id){
+
+        List<Comentario> comentarios = new ArrayList<Comentario>();
+
+        asffsa
+
+        return comentarios;
+    }
 
 }

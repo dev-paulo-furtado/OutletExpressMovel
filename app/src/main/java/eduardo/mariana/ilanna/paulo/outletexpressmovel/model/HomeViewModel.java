@@ -64,10 +64,7 @@ public class HomeViewModel extends AndroidViewModel {
         return  categorias;
     }
 
-    public List<Produto> getProdutos(String categoria){
-        //List<Produto> produtos = new ArrayList<>();
-
-        ProductsRepository productsRepository = new ProductsRepository(getApplication());
+    public LiveData<List<Produto>> getProdutosLD(String categoria){
 
         MutableLiveData<List<Produto>> produtosLD = new MutableLiveData<>();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -86,8 +83,8 @@ public class HomeViewModel extends AndroidViewModel {
                 produtosLD.postValue(p);
             }
         });
-        System.out.println(produtosLD.getValue());
-        return produtosLD.getValue();
+
+        return produtosLD;
     }
 
 }
