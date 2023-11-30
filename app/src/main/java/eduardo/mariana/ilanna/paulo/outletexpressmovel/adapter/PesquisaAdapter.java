@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.ProdutoActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
@@ -44,21 +46,23 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         Produto produto = produtos.get(position);
         View v = holder.itemView;
 
+        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+
         //preenche a imagem do produto
         // preenche o campo de foto
         int w = (int) homeActivity.getResources().getDimension(R.dimen.thumb_width);
         int h = (int) homeActivity.getResources().getDimension(R.dimen.thumb_height);
-        ImageView imvProductThumb = holder.itemView.findViewById(R.id.imvDetalheProduto);
+        ImageView imvProductThumb = holder.itemView.findViewById(R.id.imvProduto);
         // somente agora o a imagem é obtida do servidor. Caso a imagem já esteja salva no cache da app,
         // não baixamos ela de novo
         ImageCache.loadImageUrlToImageView(homeActivity, produto.imagem, imvProductThumb, w, h);
 
         //preenche o nome do produto
-        TextView tvNomeProduto = v.findViewById(R.id.tvDetalheNomeProduto);
+        TextView tvNomeProduto = v.findViewById(R.id.tvNomeProduto);
         tvNomeProduto.setText(produto.nome_produto);
 
         TextView tvValorProduto = v.findViewById(R.id.tvValorProduto);
-        tvValorProduto.setText("R$ " + Float.toString(produto.valor_atual));
+        tvValorProduto.setText("R$ " + produto.valor_atual);
 
         RatingBar rbAvaliacaoProduto = v.findViewById(R.id.rbAvaliacaoProduto);
         rbAvaliacaoProduto.setStepSize(0.1f);

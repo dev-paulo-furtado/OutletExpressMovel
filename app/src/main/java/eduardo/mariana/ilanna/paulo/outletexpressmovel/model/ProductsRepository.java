@@ -318,7 +318,7 @@ public class ProductsRepository {
                     Produto product = new Produto();
                     product.codigo = Integer.parseInt(pid);
                     product.nome_produto = name;
-                    product.valor_atual = Float.parseFloat(price);
+                    product.valor_atual = price;
                     product.imagem = imagem;
 
                     // Adicionamos o objeto product na lista de produtos
@@ -335,7 +335,7 @@ public class ProductsRepository {
         return productsList;
     }
 
-    public Produto loadProductDetail(String id) {
+    public Produto loadProductDetail(String codigo) {
 
         // Para obter a lista de produtos é preciso estar logado. Então primeiro otemos o login e senha
         // salvos na app.
@@ -344,7 +344,7 @@ public class ProductsRepository {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
         HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "detalhes_produto.php", "GET", "UTF-8");
-        httpRequest.addParam("id", id);
+        httpRequest.addParam("codigo", codigo);
 
         // Para esta ação, é preciso estar logado. Então na requisição HTTP setamos o login e senha do
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
@@ -394,16 +394,18 @@ public class ProductsRepository {
                 String img = jsonObject.getString("imagem");
                 String desconto = jsonObject.getString("desconto");
                 String avaliacao = jsonObject.getString("avaliacao");
+                String descricao = jsonObject.getString("descricao");
                 String link_empresa = jsonObject.getString("link_empresa");
                 String nome_empresa = jsonObject.getString("nome_empresa");
 
                 // Cria um objeto Product e guarda os detalhes do produto dentro dele.
                 Produto p = new Produto();
                 p.nome_produto = name;
-                p.codigo = Integer.parseInt(id);
+                p.codigo = Integer.parseInt(codigo);
                 p.valor_atual = price;
                 p.imagem = img;
                 p.desconto = Float.parseFloat(desconto);
+                p.descricao = descricao;
                 p.avaliacao = Float.parseFloat(avaliacao);
                 p.link_empresa = link_empresa;
                 p.nome_empresa = nome_empresa;
@@ -417,7 +419,7 @@ public class ProductsRepository {
         }
         return null;
     }
-
+    /*
     public List<Comentario> loadComments(String id){
 
         List<Comentario> comentarios = new ArrayList<Comentario>();
@@ -426,5 +428,7 @@ public class ProductsRepository {
 
         return comentarios;
     }
+
+     */
 
 }

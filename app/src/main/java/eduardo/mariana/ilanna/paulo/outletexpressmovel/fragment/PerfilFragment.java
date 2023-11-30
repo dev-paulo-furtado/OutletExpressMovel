@@ -78,7 +78,7 @@ public class PerfilFragment extends Fragment {
 
         // O método de register retorna um LiveData, que na prática é um container que avisa
         // quando o resultado do servidor chegou.
-        LiveData<Boolean> resultLD = perfilViewModel.register(novoEmail, novaSenha, novoNome);
+        //LiveData<Boolean> resultLD = perfilViewModel.register(novoEmail, novaSenha, novoNome);
 
     }
 

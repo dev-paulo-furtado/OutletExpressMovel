@@ -9,6 +9,7 @@ public class Produto {
     public String valor_atual;
     public float avaliacao;
     public float desconto;
+    public String descricao;
     public String link_empresa;
     public String nome_empresa;
 

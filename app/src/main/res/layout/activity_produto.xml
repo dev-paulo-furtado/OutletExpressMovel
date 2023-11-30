@@ -151,7 +151,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvDetalheDesconto" />
 
                 <TextView
-                    android:id="@+id/tvQuantidade"
+                    android:id="@+id/tvDetalheQuantidade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
