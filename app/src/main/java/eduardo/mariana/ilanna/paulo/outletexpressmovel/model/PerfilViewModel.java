@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
+
 public class PerfilViewModel extends AndroidViewModel {
     public PerfilViewModel(@NonNull Application application) {
         super(application);
@@ -17,14 +19,13 @@ public class PerfilViewModel extends AndroidViewModel {
 
     /**
      * Método que cria e executa uma requisição ao servidor web para mostar dados do usuario
-     * @param novoEmail login do usuário
-     * @param novaSenha senha do usuário
+     * @param pEmail login do usuário
      * @return um LiveData que vai conter a resposta do servidor quando esta estiver disponível
      */
-    public LiveData<Boolean> register(String novoEmail, String novaSenha, String novoNome) {
+    public LiveData<Perfil> getDetalhesPerfil(String pEmail) {
 
         // Cria um container do tipo MutableLiveData (um LiveData que pode ter seu conteúdo alterado).
-        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        MutableLiveData<Perfil> perfildetalhes = new MutableLiveData<>();
 
         // Cria uma nova linha de execução (thread). O android obriga que chamadas de rede sejam feitas
         // em uma linha de execução separada da principal.
@@ -48,14 +49,14 @@ public class PerfilViewModel extends AndroidViewModel {
                 // O método login envia os dados de novo usuário ao servidor. Ele retorna
                 // um booleano indicando true caso o cadastro de novo usuário tenha sido feito com sucesso e false
                 // em caso contrário
-                boolean b = productsRepository.register(novoEmail, novaSenha, novoNome);
+                Perfil p = productsRepository.dadosUsuario(pEmail);
 
                 // Aqui postamos o resultado da operação dentro do LiveData. Quando fazemos isso,
                 // quem estiver observando o LiveData será avisado de que o resultado está disponível.
-                result.postValue(b);
+                perfildetalhes.postValue(p);
             }
         });
 
-        return result;
+        return perfildetalhes;
     }
 }
