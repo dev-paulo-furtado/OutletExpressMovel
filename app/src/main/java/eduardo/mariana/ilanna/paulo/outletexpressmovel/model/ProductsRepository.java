@@ -132,8 +132,6 @@ public class ProductsRepository {
 
     /**
      * Método que cria uma requisição HTTP para obter uma página/bloco de produtos junto ao servidor web.
-     * @param limit a quantidade de produtos a serem obtidos
-     * @param offSet a posição a partir da qual a página de produtos deve começar
      * @return lista de produtos
      */
     /*
