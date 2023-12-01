@@ -1,24 +1,33 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.LoginActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,23 +45,80 @@ public class PerfilFragment extends Fragment {
         //setContentView(R.layout.fragment_perfil);
     }
 
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_perfil, container, false);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Para obter os detalhes do produto, a app envia o id do produto ao servidor web. Este
-        // último responde com os detalhes do produto referente ao pid.
+        //botao editar senha
+        Button btnAlterarSenha = view.findViewById(R.id.btnAlterarSenha);
+        btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        // O pid do produto é enviado para esta tela quando o produto é clicado na tela de Home.
-        // Aqui nós obtemos o pid.
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-        Intent i = homeActivity.getIntent();
-        String pEmail = i.getStringExtra("pEmail");
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.alterar_senha_dlg, null))
+                        // Add action buttons
+                        .setPositiveButton("Alterar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                                //getView().findViewById(R.id.sbFiltroPreco);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+
+        //botao editar senha
+        ImageButton btnAlterarNome = view.findViewById(R.id.btnAlterarNome);
+        btnAlterarNome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.alterar_nome_dlg, null))
+                        // Add action buttons
+                        .setPositiveButton("Alterar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                                //getView().findViewById(R.id.sbFiltroPreco);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
 
         // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
-        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
         // O ViewModel possui o método getProductDetailsLD, que obtém os detalhes de um produto em
         // específico do servidor web.
@@ -60,7 +126,7 @@ public class PerfilFragment extends Fragment {
         // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
         // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
         // entregou para a app.
-        LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil(pEmail);
+        LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil();
 
         // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
         // será guardado dentro do LiveData. Neste momento o
@@ -80,9 +146,28 @@ public class PerfilFragment extends Fragment {
                     tvEmailPerfil.setText(perfil.email);
                 }
                 else {
-                    Toast.makeText(homeActivity, "Não foi possível obter os detalhes do produto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Não foi possível obter os detalhes do usuario", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        //botao sair da conta
+        Button btnLogin = view.findViewById(R.id.btnSair);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String login = null;
+                Config.setLogin(getActivity(), login);
+                //ir para home
+
+                HomeFragment homeFragment = HomeFragment.newInstance();
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.setFragment(homeFragment, R.id.fragContainer);
+            }
+        });
+
+
+
     }
 }

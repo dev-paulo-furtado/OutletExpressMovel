@@ -29,7 +29,7 @@ public class ProductsRepository {
     public boolean register(String novoEmail, String novaSenha, String novoNome) {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "php/movel/registrar.php", "POST", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "registrar.php", "POST", "UTF-8");
         httpRequest.addParam("novo_email", novoEmail);
         httpRequest.addParam("nova_senha", novaSenha);
         httpRequest.addParam("novo_nome", novoNome);
@@ -83,7 +83,7 @@ public class ProductsRepository {
     public boolean login(String email, String senha) {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "php/movel/login.php", "POST", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "login.php", "POST", "UTF-8");
         httpRequest.setBasicAuth(email, senha);
 
         String result = "";
@@ -423,7 +423,7 @@ public class ProductsRepository {
         return null;
     }
 
-    public Perfil dadosUsuario(String email) {
+    public Perfil dadosUsuario() {
 
         // Para obter a lista de produtos é preciso estar logado. Então primeiro otemos o login e senha
         // salvos na app.
@@ -432,7 +432,7 @@ public class ProductsRepository {
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
         HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "dados_usuario.php", "GET", "UTF-8");
-        httpRequest.addParam("email", email);
+        httpRequest.addParam("email", login);
 
         // Para esta ação, é preciso estar logado. Então na requisição HTTP setamos o login e senha do
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,

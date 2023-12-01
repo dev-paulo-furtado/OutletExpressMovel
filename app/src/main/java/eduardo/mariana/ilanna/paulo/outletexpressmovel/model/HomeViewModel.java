@@ -89,7 +89,7 @@ public class HomeViewModel extends AndroidViewModel {
         return produtosLD;
     }
 
-    public LiveData<Perfil> getDetalhesPerfil(String pEmail) {
+    public LiveData<Perfil> getDetalhesPerfil() {
 
         // Cria um container do tipo MutableLiveData (um LiveData que pode ter seu conteúdo alterado).
         MutableLiveData<Perfil> perfildetalhes = new MutableLiveData<>();
@@ -116,7 +116,7 @@ public class HomeViewModel extends AndroidViewModel {
                 // O método login envia os dados de novo usuário ao servidor. Ele retorna
                 // um booleano indicando true caso o cadastro de novo usuário tenha sido feito com sucesso e false
                 // em caso contrário
-                Perfil p = productsRepository.dadosUsuario(pEmail);
+                Perfil p = productsRepository.dadosUsuario();
 
                 // Aqui postamos o resultado da operação dentro do LiveData. Quando fazemos isso,
                 // quem estiver observando o LiveData será avisado de que o resultado está disponível.
