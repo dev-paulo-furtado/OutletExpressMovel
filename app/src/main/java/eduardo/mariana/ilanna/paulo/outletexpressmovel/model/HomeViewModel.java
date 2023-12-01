@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Categoria;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import kotlinx.coroutines.CoroutineScope;
@@ -88,6 +89,30 @@ public class HomeViewModel extends AndroidViewModel {
 
         return produtosLD;
     }
+
+    public LiveData<List<ItemCarrinho>> getCarrinhoLD(){
+
+        MutableLiveData<List<ItemCarrinho>> CarrinhoLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.categorizeProducts();
+
+                CarrinhoLD.postValue(p);
+            }
+        });
+
+        return CarrinhoLD;
+    }
+
 
     public LiveData<Perfil> getDetalhesPerfil() {
 

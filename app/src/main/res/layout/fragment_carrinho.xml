@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
+        android:id="@+id/rvCarrinho"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -54,5 +54,5 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+        app:layout_constraintTop_toBottomOf="@+id/rvCarrinho" />
 </androidx.constraintlayout.widget.ConstraintLayout>

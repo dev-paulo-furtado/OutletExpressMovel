@@ -1,11 +1,11 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 
 public class ItemCarrinho {
-    int id_produto;
-    int quantidade;
+    public Produto produto;
+    public int quantidade;
 
-    public ItemCarrinho(int id_produto, int quantidade) {
-        this.id_produto = id_produto;
+    public ItemCarrinho(Produto produto, int quantidade) {
+        this.produto = produto;
         this.quantidade = quantidade;
     }
 }

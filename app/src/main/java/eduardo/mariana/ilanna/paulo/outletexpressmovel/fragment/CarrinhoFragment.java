@@ -2,13 +2,28 @@ package eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CarrinhoAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +67,7 @@ public class CarrinhoFragment extends Fragment {
         return new CarrinhoFragment();
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +76,34 @@ public class CarrinhoFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_carrinho, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView rvCarrinho = (RecyclerView) view.findViewById(R.id.rvCarrinho);
+        rvCarrinho.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+
+        LiveData<List<ItemCarrinho>> prodLiveData = mViewModel.getCarrinhoLD();
+        prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<ItemCarrinho>>() {
+            @Override
+            public void onChanged(List<ItemCarrinho> itensCarrinho) {
+                CarrinhoAdapter carrinhoAdapter = new CarrinhoAdapter(homeActivity, itensCarrinho);
+                rvCarrinho.setAdapter(carrinhoAdapter);
+            }
+        });
+
+        //homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
+
     }
 }
