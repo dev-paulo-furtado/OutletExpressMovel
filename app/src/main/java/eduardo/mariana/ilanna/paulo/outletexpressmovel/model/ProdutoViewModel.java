@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Comentario;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 
 public class ProdutoViewModel extends AndroidViewModel {
@@ -55,5 +56,28 @@ public class ProdutoViewModel extends AndroidViewModel {
         });
 
         return productDetailLD;
+    }
+
+    public LiveData<List<Comentario>> getComentarioLD(String codigo_produto){
+
+        MutableLiveData<List<Comentario>> comentariosLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Comentario>  c = productsRepository.getComentarios(codigo_produto);
+
+                comentariosLD.postValue(c);
+            }
+        });
+
+        return comentariosLD;
     }
 }

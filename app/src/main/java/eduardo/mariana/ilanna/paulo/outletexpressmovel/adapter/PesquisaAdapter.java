@@ -65,7 +65,6 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         tvValorProduto.setText("R$ " + produto.valor_atual);
 
         RatingBar rbAvaliacaoProduto = v.findViewById(R.id.rbAvaliacaoProduto);
-        rbAvaliacaoProduto.setStepSize(0.1f);
         rbAvaliacaoProduto.setRating(produto.avaliacao);
 
         TextView tvDesconto = v.findViewById(R.id.tvDesconto);
