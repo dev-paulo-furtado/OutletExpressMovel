@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SeekBar
-                    android:id="@+id/seekBar"
+                    android:id="@+id/sbFiltroPreco"
                     android:layout_width="0dp"
                     android:layout_height="12dp"
                     android:layout_marginStart="24dp"

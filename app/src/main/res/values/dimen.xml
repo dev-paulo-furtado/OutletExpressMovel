@@ -2,8 +2,8 @@
 <resources>
     <dimen name="thumb_width">70dp</dimen>
     <dimen name="thumb_height">70dp</dimen>
-    <dimen name="img_width">100dp</dimen>
-    <dimen name="img_height">100dp</dimen>
+    <dimen name="img_width">150dp</dimen>
+    <dimen name="img_height">150dp</dimen>
     <dimen name="categoria_width">70dp</dimen>
     <dimen name="categoria_height">70dp</dimen>
 </resources>

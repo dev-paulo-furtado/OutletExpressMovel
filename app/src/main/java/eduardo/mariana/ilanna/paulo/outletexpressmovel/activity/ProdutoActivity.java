@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -41,6 +43,61 @@ public class ProdutoActivity extends AppCompatActivity {
         // Aqui nós obtemos o pid.
         Intent i = getIntent();
         String codigo_produto = String.valueOf(i.getIntExtra("codigo_produto", 0));
+
+        TextView qtd = findViewById(R.id.tvDetalheQuantidade);
+
+        Button btnDetalheDiminuiQuantidade = findViewById(R.id.btnDetalheDiminuiQuantidade);
+        btnDetalheDiminuiQuantidade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //System.out.println(qtd.getText().toString());
+                //System.out.println(Integer.parseInt(qtd.getText().toString()));
+                //System.out.println(Integer.parseInt(qtd.getText().toString()) - 1);
+                int nova_qtd = Integer.parseInt(qtd.getText().toString()) - 1;
+                if(nova_qtd < 1){
+                    nova_qtd = 1;
+                }
+                qtd.setText(String.valueOf(nova_qtd));
+            }
+        });
+
+        Button btnDetalheAddQuantidade = findViewById(R.id.btnDetalheAddQuantidade);
+        btnDetalheAddQuantidade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //System.out.println(qtd.getText().toString());
+                //System.out.println(Integer.parseInt(qtd.getText().toString()));
+                //System.out.println(Integer.parseInt(qtd.getText().toString()) + 1);
+                int nova_qtd = Integer.parseInt(qtd.getText().toString()) + 1;
+                if(nova_qtd > 20){
+                    nova_qtd = 20;
+                }
+                //System.out.println(nova_qtd);
+                qtd.setText(String.valueOf(nova_qtd));
+            }
+        });
+
+        Button btnAddCarrinho = findViewById(R.id.btnAddCarrinho);
+        btnAddCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                i.putExtra("codigo_produto",codigo_produto);
+                i.putExtra("quantidade",qtd.getText());
+
+            }
+        });
+
+
+        Button btnComprarAgora = findViewById(R.id.btnComprarAgora);
+        btnComprarAgora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
         // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
         ProdutoViewModel produtoViewModel = new ViewModelProvider(this).get(ProdutoViewModel.class);
@@ -81,7 +138,10 @@ public class ProdutoActivity extends AppCompatActivity {
                     tvValorAtual.setText("R$ " + produto.valor_atual);
 
                     TextView tvDetalheDesconto = findViewById(R.id.tvDetalheDesconto);
-                    tvDetalheDesconto.setText(produto.desconto + "%");
+                    float porcentagem = Float.parseFloat(produto.valor_atual) + produto.desconto;
+                    porcentagem = produto.desconto / porcentagem * 100;
+                    porcentagem = Math.round(porcentagem);
+                    tvDetalheDesconto.setText(String.valueOf(porcentagem) + "%");
 
                     RatingBar ratingBar = findViewById(R.id.rbDetalheAvaliacao);
                     ratingBar.setRating(produto.avaliacao);

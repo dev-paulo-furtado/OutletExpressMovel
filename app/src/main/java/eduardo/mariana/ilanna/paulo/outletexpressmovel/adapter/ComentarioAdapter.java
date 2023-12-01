@@ -46,7 +46,7 @@ public class ComentarioAdapter extends RecyclerView.Adapter{
         tvComentarioCliente.setText(comentario.nome_cliente);
 
         TextView tvComentario = v.findViewById(R.id.tvComentario);
-        tvComentario.setText(comentario.comentario);
+        tvComentario.setText(comentario.conteudo);
 
         TextView tvComentarioData = v.findViewById(R.id.tvComentarioData);
         tvComentarioData.setText(comentario.data);

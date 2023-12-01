@@ -311,6 +311,8 @@ public class ProductsRepository {
                     String pid = jProduct.getString("codigo");
                     String name = jProduct.getString("nome");
                     String price = jProduct.getString("valor_atual");
+                    String desconto = jProduct.getString("desconto");
+                    String avaliacao = jProduct.getString("avaliacao");
                     String imagem = jProduct.getString("imagem");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
@@ -318,6 +320,8 @@ public class ProductsRepository {
                     product.codigo = Integer.parseInt(pid);
                     product.nome_produto = name;
                     product.valor_atual = price;
+                    product.desconto = Float.parseFloat(desconto);
+                    product.avaliacao = Float.parseFloat(avaliacao);
                     product.imagem = imagem;
 
                     // Adicionamos o objeto product na lista de produtos
@@ -502,7 +506,7 @@ public class ProductsRepository {
         //String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"php/movel/listar_produtos.php", "GET", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"dados_comentario.php", "GET", "UTF-8");
         //httpRequest.addParam("limit", limit.toString());
         //httpRequest.addParam("offset", offSet.toString());
         httpRequest.addParam("codigo", codigo);
@@ -539,7 +543,7 @@ public class ProductsRepository {
             // Fecha a conexão com o servidor web.
             httpRequest.finish();
 
-            Log.i("HTTP PRODUCTS RESULT", result);
+            Log.i("HTTP COMMENTS RESULT", result);
 
             // A classe JSONObject recebe como parâmetro do construtor uma String no formato JSON e
             // monta internamente uma estrutura de dados similar ao dicionário em python.
@@ -554,23 +558,23 @@ public class ProductsRepository {
 
                 // A chave produtos é um array de objetos do tipo json (JSONArray), onde cada um desses representa
                 // um produto
-                JSONArray jsonArray = jsonObject.getJSONArray("produtos");
+                JSONArray jsonArray = jsonObject.getJSONArray("comentarios");
 
                 // Cada elemento do JSONArray é um JSONObject que guarda os dados de um produto
                 for(int i = 0; i < jsonArray.length(); i++) {
 
                     // Obtemos o JSONObject referente a um produto
-                    JSONObject jProduct = jsonArray.getJSONObject(i);
+                    JSONObject jComentario = jsonArray.getJSONObject(i);
 
                     // Obtemos os dados de um produtos via JSONObject
-                    String nome = jProduct.getString("nome");
-                    String conteudo = jProduct.getString("comentario");
-                    String avaliacao = jProduct.getString("avaliacao");
+                    String nome = jComentario.getString("nome");
+                    String conteudo = jComentario.getString("conteudo");
+                    String avaliacao = jComentario.getString("avaliacao");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
                     Comentario comentario = new Comentario();
                     comentario.nome_cliente = nome;
-                    comentario.comentario = conteudo;
+                    comentario.conteudo = conteudo;
                     comentario.avaliacao = Float.parseFloat(avaliacao);
 
                     // Adicionamos o objeto product na lista de produtos

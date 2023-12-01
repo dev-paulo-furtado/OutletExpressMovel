@@ -68,7 +68,11 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         rbAvaliacaoProduto.setRating(produto.avaliacao);
 
         TextView tvDesconto = v.findViewById(R.id.tvDesconto);
-        tvDesconto.setText(Float.toString(produto.desconto));
+        float porcentagem = Float.parseFloat(produto.valor_atual) + produto.desconto;
+        porcentagem = produto.desconto / porcentagem * 100;
+        porcentagem = Math.round(porcentagem);
+        tvDesconto.setText(String.valueOf(porcentagem) + "%");
+
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
