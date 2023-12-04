@@ -28,7 +28,7 @@
         android:background="@color/white"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Minhas Compras"
+        android:text="Meu produtos comprados"
         android:textAlignment="center"
         android:textColor="@color/primaryColor"
         android:textSize="20sp"

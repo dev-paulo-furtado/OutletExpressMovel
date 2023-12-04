@@ -497,6 +497,95 @@ public class ProductsRepository {
         return null;
     }
 
+    //produtos comprados pelo usuario
+    public List<Produto> produtosComprados(String email) {
+        // cria a lista de produtos incicialmente vazia, que será retornada como resultado
+        List<Produto> produtosList = new ArrayList<>();
+
+        // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"dados_minhas_compras.php", "GET", "UTF-8");
+        //httpRequest.addParam("limit", limit.toString());
+        //httpRequest.addParam("offset", offSet.toString());
+        httpRequest.addParam("email", email);
+
+        // Para esta ação, é preciso estar logado. Então na requisição HTTP setamos o login e senha do
+        // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
+        // o qual verificará se o login e senha batem com aquilo que está no BD. Somente depois dessa
+        // verificação de autenticação é que o servidor web irá realizar esta ação.
+        //httpRequest.setBasicAuth(login, password);
+
+        String result = "";
+        try {
+            // Executa a requisição HTTP. É neste momento que o servidor web é contactado. Ao executar
+            // a requisição é aberto um fluxo de dados entre o servidor e a app (InputStream is).
+            InputStream is = httpRequest.execute();
+
+            // Obtém a resposta fornecida pelo servidor. O InputStream é convertido em uma String. Essa
+            // String é a resposta do servidor web em formato JSON.
+            //
+            // Em caso de sucesso, será retornada uma String JSON no formato:
+            //
+            // {"sucesso":1,
+            //  "produtos":[
+            //          {"id":"7", "nome":"produto 1", "preco":"10.00", "img":"www.imgur.com/img1.jpg"},
+            //          {"id":"8", "nome":"produto 2", "preco":"20.00", "img":"www.imgur.com/img2.jpg"}
+            //       ]
+            // }
+            //
+            // Em caso de falha, será retornada uma String JSON no formato:
+            //
+            // {"sucesso":0,"erro":"Erro ao obter produtos"}
+            result = Util.inputStream2String(is, "UTF-8");
+
+            // Fecha a conexão com o servidor web.
+            httpRequest.finish();
+
+            Log.i("HTTP COMMENTS RESULT", result);
+
+            // A classe JSONObject recebe como parâmetro do construtor uma String no formato JSON e
+            // monta internamente uma estrutura de dados similar ao dicionário em python.
+            JSONObject jsonObject = new JSONObject(result);
+
+            // obtem o valor da chave sucesso para verificar se a ação ocorreu da forma esperada ou não.
+            int success = jsonObject.getInt("sucesso");
+
+            // Se sucesso igual a 1, os produtos são obtidos da String JSON e adicionados à lista de
+            // produtos a ser retornada como resultado.
+            if(success == 1) {
+
+                // A chave produtos é um array de objetos do tipo json (JSONArray), onde cada um desses representa
+                // um produto
+                JSONArray jsonArray = jsonObject.getJSONArray("produtos");
+
+                // Cada elemento do JSONArray é um JSONObject que guarda os dados de um produto
+                for(int i = 0; i < jsonArray.length(); i++) {
+
+                    // Obtemos o JSONObject referente a um produto
+                    JSONObject jComentario = jsonArray.getJSONObject(i);
+
+                    // Obtemos os dados de um produtos via JSONObject
+                    String nome = jComentario.getString("nome");
+                    String descricao = jComentario.getString("descricao");
+
+                    // Criamo um objeto do tipo Product para guardar esses dados
+                    Produto produto = new Produto();
+                    produto.nome_produto = nome;
+                    produto.descricao = descricao;
+
+                    // Adicionamos o objeto product na lista de produtos
+                    produtosList.add(produto);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("HTTP RESULT", result);
+        }
+
+        return produtosList;
+    }
+
     public List<Comentario> getComentarios(String codigo) {
         // cria a lista de produtos incicialmente vazia, que será retornada como resultado
         List<Comentario> comentariosList = new ArrayList<>();

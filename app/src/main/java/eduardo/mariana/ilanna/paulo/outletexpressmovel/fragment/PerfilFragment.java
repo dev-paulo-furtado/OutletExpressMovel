@@ -86,7 +86,6 @@ public class PerfilFragment extends Fragment {
             }
         });
 
-
         //botao editar senha
         ImageButton btnAlterarNome = view.findViewById(R.id.btnAlterarNome);
         btnAlterarNome.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +149,8 @@ public class PerfilFragment extends Fragment {
                 }
             }
         });
+
+        //carregar Minhas compras
 
         //botao sair da conta
         Button btnLogin = view.findViewById(R.id.btnSair);
