@@ -46,7 +46,6 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         Produto produto = produtos.get(position);
         View v = holder.itemView;
 
-        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
         //preenche a imagem do produto
         // preenche o campo de foto

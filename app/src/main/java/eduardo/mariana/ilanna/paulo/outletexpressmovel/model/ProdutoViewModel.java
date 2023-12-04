@@ -80,4 +80,27 @@ public class ProdutoViewModel extends AndroidViewModel {
 
         return comentariosLD;
     }
+
+    public LiveData<Boolean> addProdutoNoCarrinho(String codigo_produto, String quantidade){
+
+        MutableLiveData<Boolean> resultLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                Boolean  c = productsRepository.addProdutoNoCarrinho(codigo_produto, quantidade);
+
+                resultLD.postValue(c);
+            }
+        });
+
+        return resultLD;
+    }
 }

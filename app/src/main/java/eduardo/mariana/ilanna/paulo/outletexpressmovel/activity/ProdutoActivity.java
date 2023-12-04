@@ -36,6 +36,9 @@ public class ProdutoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produto);
 
+        // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
+        ProdutoViewModel produtoViewModel = new ViewModelProvider(this).get(ProdutoViewModel.class);
+
         // Para obter os detalhes do produto, a app envia o id do produto ao servidor web. Este
         // último responde com os detalhes do produto referente ao pid.
 
@@ -81,9 +84,8 @@ public class ProdutoActivity extends AppCompatActivity {
         btnAddCarrinho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent();
-                i.putExtra("codigo_produto",codigo_produto);
-                i.putExtra("quantidade",qtd.getText());
+                String quantidade = qtd.getText().toString();
+                produtoViewModel.addProdutoNoCarrinho(codigo_produto, quantidade);
 
             }
         });
@@ -99,8 +101,7 @@ public class ProdutoActivity extends AppCompatActivity {
 
 
 
-        // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
-        ProdutoViewModel produtoViewModel = new ViewModelProvider(this).get(ProdutoViewModel.class);
+
 
         // O ViewModel possui o método getProductDetailsLD, que obtém os detalhes de um produto em
         // específico do servidor web.

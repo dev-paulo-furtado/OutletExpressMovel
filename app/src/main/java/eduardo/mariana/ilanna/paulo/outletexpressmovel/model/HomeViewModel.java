@@ -90,6 +90,7 @@ public class HomeViewModel extends AndroidViewModel {
         return produtosLD;
     }
 
+
     public LiveData<List<ItemCarrinho>> getCarrinhoLD(){
 
         MutableLiveData<List<ItemCarrinho>> CarrinhoLD = new MutableLiveData<>();
@@ -104,9 +105,9 @@ public class HomeViewModel extends AndroidViewModel {
 
                 ProductsRepository productsRepository = new ProductsRepository(getApplication());
 
-                List<Produto> p = productsRepository.categorizeProducts();
+               // List<ItemCarrinho> ic = productsRepository.getItensCarrinho();
 
-                CarrinhoLD.postValue(p);
+                //CarrinhoLD.postValue(ic);
             }
         });
 
