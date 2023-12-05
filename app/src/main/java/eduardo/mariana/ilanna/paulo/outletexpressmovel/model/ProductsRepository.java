@@ -561,11 +561,11 @@ public class ProductsRepository {
                 for(int i = 0; i < jsonArray.length(); i++) {
 
                     // Obtemos o JSONObject referente a um produto
-                    JSONObject jComentario = jsonArray.getJSONObject(i);
+                    JSONObject jProdutos = jsonArray.getJSONObject(i);
 
                     // Obtemos os dados de um produtos via JSONObject
-                    String nome = jComentario.getString("nome");
-                    String descricao = jComentario.getString("descricao");
+                    String nome = jProdutos.getString("nome");
+                    String descricao = jProdutos.getString("descricao");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
                     Produto produto = new Produto();

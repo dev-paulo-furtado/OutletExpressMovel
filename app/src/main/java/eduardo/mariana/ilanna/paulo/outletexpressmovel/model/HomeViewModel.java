@@ -153,4 +153,20 @@ public class HomeViewModel extends AndroidViewModel {
         return perfildetalhes;
     }
 
+    public LiveData<List<Produto>> getProdutosComprados(String email) {
+
+        MutableLiveData<List<Produto>> produtosComprados = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.produtosComprados(email);
+
+                produtosComprados.postValue(p);
+            }
+        });
+        return produtosComprados;
+    }
 }

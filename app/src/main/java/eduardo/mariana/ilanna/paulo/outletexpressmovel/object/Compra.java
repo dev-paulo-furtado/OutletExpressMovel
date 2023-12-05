@@ -10,10 +10,11 @@ public class Compra {
     //float frete;
     float total;
 
+    /*
     public Compra(ArrayList<Produto> produtos, float total) {
         this.produtos = produtos;
         this.total = total;
-    }
+    }*/
 
     //metodo comprar() com parametro de ArrayList, serve para "comprar agora" ou "comprar tudo" do carrinhp
 

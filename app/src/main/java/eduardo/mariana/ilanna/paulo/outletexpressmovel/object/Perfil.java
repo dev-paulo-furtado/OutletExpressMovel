@@ -1,7 +1,7 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.object;
 
 public class Perfil {
-    public String email;
+    public static String email;
     public String nome;
     String senha;
 

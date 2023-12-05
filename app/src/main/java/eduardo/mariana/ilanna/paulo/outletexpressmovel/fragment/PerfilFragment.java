@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.List;
+
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.LoginActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 
 /**
@@ -42,6 +48,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //setContentView(R.layout.fragment_perfil);
     }
 
@@ -55,6 +62,74 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
+        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+
+        // O ViewModel possui o método getProductDetailsLD, que obtém os detalhes de um produto em
+        // específico do servidor web.
+        //
+        // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
+        // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
+        // entregou para a app.
+        LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil();
+
+        // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
+        // será guardado dentro do LiveData. Neste momento o
+        // LiveData avisa que o produto chegou chamando o método onChanged abaixo.
+        perfil.observe(getViewLifecycleOwner(), new Observer<Perfil>() {
+            @Override
+            public void onChanged(Perfil perfil) {
+
+                // product contém os detalhes do produto que foram entregues pelo servidor web
+                if(perfil != null) {
+
+                    // Abaixo nós obtemos os dados do produto e setamos na interfa de usuário
+                    TextView tvNomePerfil = view.findViewById(R.id.tvNomePerfil);
+                    tvNomePerfil.setText(perfil.nome);
+
+                    TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
+                    tvEmailPerfil.setText(perfil.email);
+
+
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "Não foi possível obter os detalhes do usuario", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        //carregar Minhas compras
+
+        // O ViewModel possui o método getProductDetailsLD, que obtém os detalhes de um produto em
+        // específico do servidor web.
+        //
+        // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
+        // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
+        // entregou para a app.
+
+        TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
+        String email = (String) tvEmailPerfil.getText();
+
+        RecyclerView rvProdutosComprados = (RecyclerView) view.findViewById(R.id.rvProdutosComprados);
+        rvProdutosComprados.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LiveData<List<Produto>> produtosComprados = homeViewModel.getProdutosComprados(email);
+
+        // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
+        // será guardado dentro do LiveData. Neste momento o
+        // LiveData avisa que o produto chegou chamando o método onChanged abaixo.
+        produtosComprados.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+            @Override
+            public void onChanged(List<Produto> produtos) {
+
+                PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
+                rvProdutosComprados.setAdapter(pesquisaAdapter);
+            }
+        });
 
         //botao editar senha
         Button btnAlterarSenha = view.findViewById(R.id.btnAlterarSenha);
@@ -115,42 +190,6 @@ public class PerfilFragment extends Fragment {
                 alertDialog.show();
             }
         });
-
-        // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
-        HomeViewModel homeViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
-
-        // O ViewModel possui o método getProductDetailsLD, que obtém os detalhes de um produto em
-        // específico do servidor web.
-        //
-        // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
-        // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
-        // entregou para a app.
-        LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil();
-
-        // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
-        // será guardado dentro do LiveData. Neste momento o
-        // LiveData avisa que o produto chegou chamando o método onChanged abaixo.
-        perfil.observe(getViewLifecycleOwner(), new Observer<Perfil>() {
-            @Override
-            public void onChanged(Perfil perfil) {
-
-                // product contém os detalhes do produto que foram entregues pelo servidor web
-                if(perfil != null) {
-
-                    // Abaixo nós obtemos os dados do produto e setamos na interfa de usuário
-                    TextView tvNomePerfil = view.findViewById(R.id.tvNomePerfil);
-                    tvNomePerfil.setText(perfil.nome);
-
-                    TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
-                    tvEmailPerfil.setText(perfil.email);
-                }
-                else {
-                    Toast.makeText(getActivity(), "Não foi possível obter os detalhes do usuario", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        //carregar Minhas compras
 
         //botao sair da conta
         Button btnLogin = view.findViewById(R.id.btnSair);
