@@ -136,7 +136,8 @@ public class ProdutoActivity extends AppCompatActivity {
                     tvNomeProduto.setText(produto.nome_produto);
 
                     TextView tvValorAtual = findViewById(R.id.tvDetalheValorAtual);
-                    tvValorAtual.setText("R$ " + produto.valor_atual);
+                    String valor = String.format("%.2f", Float.parseFloat(produto.valor_atual));
+                    tvValorAtual.setText("R$ " + valor);
 
                     TextView tvDetalheDesconto = findViewById(R.id.tvDetalheDesconto);
                     float porcentagem = Float.parseFloat(produto.valor_atual) + produto.desconto;
@@ -149,6 +150,7 @@ public class ProdutoActivity extends AppCompatActivity {
 
                     TextView tvNomeEmpresa = findViewById(R.id.tvNomeEmpresa);
                     tvNomeEmpresa.setText(produto.nome_empresa);
+
                 }
                 else {
                     Toast.makeText(ProdutoActivity.this, "Não foi possível obter os detalhes do produto", Toast.LENGTH_LONG).show();

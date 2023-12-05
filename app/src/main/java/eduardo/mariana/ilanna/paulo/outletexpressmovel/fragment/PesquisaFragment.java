@@ -17,13 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.SeekBar;
 
 import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
-import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CategoriasAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
@@ -86,7 +85,7 @@ public class PesquisaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageButton btnFiltro = view.findViewById(R.id.btnFiltro);
+        Button btnFiltro = view.findViewById(R.id.btnFiltro);
         btnFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +101,9 @@ public class PesquisaFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 // sign in the user ...
-                                getView().findViewById(R.id.sbFiltroPreco);
+                                SeekBar sbFiltroPreco = getView().findViewById(R.id.sbFiltroPrecoMin);
+                                //sbFiltroPreco.
+
                             }
                         })
                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -125,14 +126,26 @@ public class PesquisaFragment extends Fragment {
 
         HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
-        LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosLD(this.categoria);
-        prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
-            @Override
-            public void onChanged(List<Produto> produtos) {
-                PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
-                rvPesquisa.setAdapter(pesquisaAdapter);
-            }
-        });
+        if(categoria != "") {
+            LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosLD(this.categoria);
+            prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+                @Override
+                public void onChanged(List<Produto> produtos) {
+                    PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
+                    rvPesquisa.setAdapter(pesquisaAdapter);
+                }
+            });
+        }
+        else if (pesquisa != "") {
+            LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosPesquisaLD(this.pesquisa);
+            prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+                @Override
+                public void onChanged(List<Produto> produtos) {
+                    PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
+                    rvPesquisa.setAdapter(pesquisaAdapter);
+                }
+            });
+        }
 
         //homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
 

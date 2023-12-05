@@ -21,20 +21,20 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
-public class PesquisaAdapter extends RecyclerView.Adapter {
+public class RecomendadosAdapter extends RecyclerView.Adapter{
     public HomeActivity homeActivity;
-    public List<Produto> produtos;
+    public List<Produto> recomendados;
 
-    public PesquisaAdapter(HomeActivity homeActivity, List<Produto> produtos) {
+    public RecomendadosAdapter(HomeActivity homeActivity, List<Produto> recomendados) {
         this.homeActivity = homeActivity;
-        this.produtos = produtos;
+        this.recomendados = recomendados;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(homeActivity);
-        View v = inflater.inflate(R.layout.itemlist_horizontal,parent,false);
+        View v = inflater.inflate(R.layout.itemlist_vertical,parent,false);
         return new PesquisaViewHolder(v);
     }
 
@@ -43,9 +43,10 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         //parei aqui na ultima aula de mobile
         //devo copiar o que fiz na CategoriasAdapter
         //pra poder preencher a lista de produtos, quando alguem pesquisar uma categoria ou quando pesquisarem um produto
-        Produto produto = produtos.get(position);
+        Produto produto = recomendados.get(position);
         View v = holder.itemView;
 
+        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
         //preenche a imagem do produto
         // preenche o campo de foto
@@ -64,6 +65,7 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         String valor = String.format("%.2f", Float.parseFloat(produto.valor_atual));
         tvValorProduto.setText("R$ " + valor);
 
+        /*
         RatingBar rbAvaliacaoProduto = v.findViewById(R.id.rbAvaliacaoProduto);
         rbAvaliacaoProduto.setRating(produto.avaliacao);
 
@@ -72,7 +74,7 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
         porcentagem = produto.desconto / porcentagem * 100;
         porcentagem = Math.round(porcentagem);
         tvDesconto.setText(String.valueOf(porcentagem) + "%");
-
+        */
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +85,10 @@ public class PesquisaAdapter extends RecyclerView.Adapter {
                 homeActivity.finish();
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return produtos.size();
+        return recomendados.size();
     }
 }

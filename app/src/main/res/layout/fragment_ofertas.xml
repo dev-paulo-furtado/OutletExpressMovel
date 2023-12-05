@@ -3,46 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.OfertasFragment" >
+    android:layout_height="wrap_content"
+    tools:context=".fragment.OfertasFragment">
 
-    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-        android:id="@+id/carousel_imagens"
-        android:layout_width="match_parent"
-        app:showTopShadow="false"
-        app:showBottomShadow="false"
-        app:autoPlay="true"
-        app:autoPlayDelay="3000"
-        app:showIndicator="true"
-        app:indicatorMargin="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-        android:id="@+id/carousel_produtos"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecomendado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:showTopShadow="false"
-        app:showBottomShadow="false"
-        app:showNavigationButtons="false"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNomeEmpresa" />
 
     <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+        android:id="@+id/carousel_imagens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:autoPlay="true"
+        app:autoPlayDelay="3000"
+        app:indicatorMargin="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showBottomShadow="false"
+        app:showIndicator="true"
+        app:showTopShadow="false" />
+
+    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
         android:id="@+id/carousel_empresas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:showTopShadow="false"
-        app:showBottomShadow="false"
-        app:showNavigationButtons="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:showBottomShadow="false"
+        app:showNavigationButtons="false"
+        app:showTopShadow="false" />
 
     <TextView
         android:id="@+id/textView6"
@@ -54,7 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carousel_produtos" />
+        app:layout_constraintTop_toBottomOf="@+id/rvRecomendado" />
 
     <TextView
         android:id="@+id/tvNomeEmpresa"

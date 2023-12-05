@@ -7,7 +7,7 @@
     tools:context=".fragment.HomeFragment">
 
     <ImageButton
-        android:id="@+id/imbBusca"
+        android:id="@+id/imbPesquisa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/etPesquisa"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -26,7 +26,7 @@
         android:ems="10"
         android:hint="Pesquisa..."
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/imbBusca"
+        app:layout_constraintEnd_toStartOf="@+id/imbPesquisa"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +50,6 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/etPesquisa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

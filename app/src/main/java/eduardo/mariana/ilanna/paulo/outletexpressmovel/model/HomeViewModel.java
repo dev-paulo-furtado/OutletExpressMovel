@@ -89,7 +89,7 @@ public class HomeViewModel extends AndroidViewModel {
 
         return produtosLD;
     }
-
+/*
 
     public LiveData<List<ItemCarrinho>> getCarrinhoLD(){
 
@@ -100,6 +100,7 @@ public class HomeViewModel extends AndroidViewModel {
              * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
              * de execução.
              */
+    /*
             @Override
             public void run() {
 
@@ -113,7 +114,7 @@ public class HomeViewModel extends AndroidViewModel {
 
         return CarrinhoLD;
     }
-
+*/
 
     public LiveData<Perfil> getDetalhesPerfil() {
 
@@ -153,6 +154,27 @@ public class HomeViewModel extends AndroidViewModel {
         return perfildetalhes;
     }
 
+    public LiveData<List<Produto>> getProdutosPesquisaLD(String pesquisa) {
+        MutableLiveData<List<Produto>> produtosPesquisaLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.searchProducts(pesquisa);
+
+                produtosPesquisaLD.postValue(p);
+            }
+        });
+
+        return produtosPesquisaLD;
+    }
     public LiveData<List<Produto>> getProdutosComprados(String email) {
 
         MutableLiveData<List<Produto>> produtosComprados = new MutableLiveData<>();

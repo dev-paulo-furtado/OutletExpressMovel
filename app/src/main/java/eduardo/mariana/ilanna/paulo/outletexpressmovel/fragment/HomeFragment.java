@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
@@ -100,7 +102,21 @@ public class HomeFragment extends Fragment {
         rvCatergorias.setHasFixedSize(true);
         rvCatergorias.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 
-        homeActivity.setFragment(OfertasFragment.newInstance(), R.id.flOfertas);
+        EditText etPesquisa = (EditText) view.findViewById(R.id.etPesquisa);
 
+        ImageButton imbPesquisa = view.findViewById(R.id.imbPesquisa);
+        imbPesquisa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String pesquisa = etPesquisa.getText().toString();
+
+                PesquisaFragment pesquisaFragment = PesquisaFragment.newInstance("",pesquisa);
+                homeActivity.setFragment(pesquisaFragment, R.id.flOfertas);
+            }
+        });
+
+
+
+        homeActivity.setFragment(OfertasFragment.newInstance(), R.id.flOfertas);
     }
 }
