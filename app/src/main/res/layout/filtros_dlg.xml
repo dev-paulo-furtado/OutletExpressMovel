@@ -37,23 +37,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <SeekBar
-                    android:id="@+id/sbFiltroPrecoMin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/sbFiltroPrecoMax"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView8" />
-
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:text="Min."
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,24 +53,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
                     android:text="Max."
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-                <SeekBar
-                    android:id="@+id/sbFiltroPrecoMax"
+                <EditText
+                    android:id="@+id/etPrecoMinimo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:ems="10"
+                    android:hint="Preço Mínimo"
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescricao" />
+
+                <EditText
+                    android:id="@+id/etPrecoMaximo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="16dp"
+                    android:ems="10"
+                    android:hint="Preço Máximo"
+                    android:inputType="number"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView24" />
+                    app:layout_constraintStart_toEndOf="@+id/textView24"
+                    app:layout_constraintTop_toBottomOf="@+id/etPrecoMinimo" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,13 +111,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar3"
+                    android:id="@+id/rbFiltroAvaliacao"
                     style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:isIndicator="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -132,7 +142,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
-                    android:layout_width="246dp"
+                    android:id="@+id/rgDesconto"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
@@ -142,34 +153,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView22">
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/rb20"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Até 20%" />
+                        android:contentDescription="20"
+                        android:text="Acima de 20%" />
 
                     <RadioButton
-                        android:id="@+id/radioButton5"
+                        android:id="@+id/rb50"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Até 50%" />
+                        android:contentDescription="50"
+                        android:text="Acima de 50%" />
 
                     <RadioButton
-                        android:id="@+id/radioButton6"
+                        android:id="@+id/rb70"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Até 70% " />
+                        android:contentDescription="70"
+                        android:text="Acima de 70% " />
 
                     <RadioButton
-                        android:id="@+id/radioButton7"
+                        android:id="@+id/rb80"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Acima de 70%" />
+                        android:contentDescription="80"
+                        android:text="Acima de 80%" />
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -185,8 +200,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
-                    android:layout_width="251dp"
-                    android:layout_height="258dp"
+                    android:id="@+id/rgAvaria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
@@ -264,8 +280,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
-                    android:layout_width="252dp"
-                    android:layout_height="285dp"
+                    android:id="@+id/rgCategoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"

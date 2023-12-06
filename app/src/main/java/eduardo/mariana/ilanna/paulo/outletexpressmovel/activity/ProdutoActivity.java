@@ -93,7 +93,7 @@ public class ProdutoActivity extends AppCompatActivity {
                             Toast.makeText(ProdutoActivity.this, "Produto adicionado ao Carrinho com Sucesso", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(ProdutoActivity.this, "Produto não adicionado ao Carrinho", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ProdutoActivity.this, "Erro ao adicionar produto ao Carrinho", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

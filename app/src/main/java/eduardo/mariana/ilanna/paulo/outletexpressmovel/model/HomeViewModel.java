@@ -58,12 +58,12 @@ public class HomeViewModel extends AndroidViewModel {
     public List<Categoria> getCategorias() {
         List<Categoria> categorias = new ArrayList<>();
 
-        categorias.add(new Categoria("Roupa", R.drawable.cateletronicos));
-        categorias.add(new Categoria("Calçado", R.drawable.cateletronicos));
-        categorias.add(new Categoria("Eletrodoméstico", R.drawable.cateletronicos));
-        categorias.add(new Categoria("Eletroportáteis", R.drawable.cateletronicos));
-        categorias.add(new Categoria("Eletrônico", R.drawable.cateletronicos));
-        categorias.add(new Categoria("Móvel", R.drawable.cateletronicos));
+        categorias.add(new Categoria("Roupa", R.drawable.roupa));
+        categorias.add(new Categoria("Calçado", R.drawable.calcado));
+        categorias.add(new Categoria("Eletrodoméstico", R.drawable.eletrodomestico));
+        categorias.add(new Categoria("Eletroportáteis", R.drawable.eletroportatil));
+        categorias.add(new Categoria("Eletrônico", R.drawable.eletronico));
+        categorias.add(new Categoria("Móvel", R.drawable.movel));
 
         return  categorias;
     }
@@ -191,5 +191,27 @@ public class HomeViewModel extends AndroidViewModel {
             }
         });
         return produtosComprados;
+    }
+
+    public LiveData<List<Produto>> getProdutosFiltradosLD(float precoMin, float precoMax, float filtroAvaliacao, int descontoSelecionado, String avariaSelecionada, String categoria, String pesquisa) {
+        MutableLiveData<List<Produto>> produtosFiltradosLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.getProdutosFiltrados(precoMin,precoMax,filtroAvaliacao,descontoSelecionado,avariaSelecionada,categoria,pesquisa);
+
+                produtosFiltradosLD.postValue(p);
+            }
+        });
+
+        return produtosFiltradosLD;
     }
 }

@@ -1,5 +1,6 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -18,6 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 
 import java.util.List;
@@ -86,6 +91,15 @@ public class PesquisaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //chamar metodo que ira preencher a lista de produtos
+        //quando o PesquisaFragment for criado, essa funcao vai ser chamada e setar o adapter da rvPesquisa
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+
+        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+
+        RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
+        rvPesquisa.setLayoutManager(new LinearLayoutManager(getContext()));
+
         Button btnFiltro = view.findViewById(R.id.btnFiltro);
         btnFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +116,87 @@ public class PesquisaFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 // sign in the user ...
-                                SeekBar sbFiltroPrecoMin = getView().findViewById(R.id.sbFiltroPrecoMin);
-                                int precoMin = sbFiltroPrecoMin.getProgress();
+                                Dialog dialogObject = (Dialog) dialog;
 
-                                SeekBar sbFiltroPrecoMax = getView().findViewById(R.id.sbFiltroPrecoMax);
-                                int precoMax = sbFiltroPrecoMax.getProgress();
+                                //pegando precoMin e setando 0 como valor padrao
+                                EditText etPrecoMinimo = dialogObject.findViewById(R.id.etPrecoMinimo);
+                                float precoMin = 0;
+                                if(etPrecoMinimo.getText().toString().isEmpty()){
+                                    precoMin = 0;
+                                }
+                                else{
+                                    precoMin = Float.parseFloat(etPrecoMinimo.getText().toString());
+                                }
 
-                                Log.e("precoMin: ", String.valueOf(precoMin));
-                                Log.e("precoMax: ", String.valueOf(precoMax));
+                                //pegando precoMax e setando 0 como valor padrao
+                                EditText etPrecoMaximo = dialogObject.findViewById(R.id.etPrecoMaximo);
+                                float precoMax = 0;
+                                if(etPrecoMaximo.getText().toString().isEmpty()){
+                                    precoMax = 0;
+                                }
+                                else{
+                                    precoMax = Float.parseFloat(etPrecoMaximo.getText().toString());
+                                }
+
+                                //pegando valor da avaliacao no filtro e setando 0 como valor padrao
+                                RatingBar rbFiltroAvaliacao = dialogObject.findViewById(R.id.rbFiltroAvaliacao);
+                                float filtroAvaliacao = 0;
+                                if(rbFiltroAvaliacao.getRating() != 0){
+                                    filtroAvaliacao = rbFiltroAvaliacao.getRating();
+                                }
+
+
+                                //pegando qual item foi selecionado do RadioGroup de Desconto
+                                RadioGroup rgDesconto = dialogObject.findViewById(R.id.rgDesconto);
+                                int descontoId = rgDesconto.getCheckedRadioButtonId();
+                                int descontoSelecionado = 0;
+                                if(descontoId == -1){
+                                    descontoSelecionado = 0;
+                                }
+                                else{
+                                    RadioButton rbDesconto = (RadioButton) rgDesconto.getChildAt(rgDesconto.indexOfChild(dialogObject.findViewById(descontoId)));
+                                    descontoSelecionado = Integer.parseInt(rbDesconto.getContentDescription().toString());
+                                }
+
+                                //pegando qual item foi selecionado do RadioGroup de Avaria
+                                RadioGroup rgAvaria = dialogObject.findViewById(R.id.rgAvaria);
+                                int idAvaria = rgAvaria.getCheckedRadioButtonId();
+                                String avariaSelecionada = "%";
+                                if(idAvaria == -1){
+                                    avariaSelecionada = "%";
+                                }
+                                else{
+                                    RadioButton rbAvaria = (RadioButton) rgAvaria.getChildAt(rgAvaria.indexOfChild(dialogObject.findViewById(idAvaria)));
+                                    avariaSelecionada = rbAvaria.getText().toString();
+                                }
+
+
+                                if(categoria == ""){
+                                    categoria = "%";
+                                }
+                                if(pesquisa == ""){
+                                    pesquisa = "%";
+                                }
+
+                                //Log.e("precoMin: ", String.valueOf(precoMin));
+                                //Log.e("precoMax: ", precoMax);
+                                //Log.e("filtroAvaliacao: ", String.valueOf(filtroAvaliacao));
+                                System.out.println(descontoSelecionado);
+                                System.out.println(avariaSelecionada);
+                                System.out.println(categoria);
+                                System.out.println(pesquisa);
+
+                                //preenchendo a lista com produtos filtrados
+                                LiveData<List<Produto>> produtosFiltrados = homeViewModel.getProdutosFiltradosLD(precoMin,precoMax,filtroAvaliacao,descontoSelecionado,avariaSelecionada,categoria,pesquisa);
+
+                                produtosFiltrados.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+                                    @Override
+                                    public void onChanged(List<Produto> produtos) {
+                                        PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
+                                        rvPesquisa.setAdapter(pesquisaAdapter);
+                                    }
+                                });
+
 
                             }
                         })
@@ -124,17 +211,9 @@ public class PesquisaFragment extends Fragment {
             }
         });
 
-        RecyclerView rvPesquisa = (RecyclerView) view.findViewById(R.id.rvPesquisa);
-        rvPesquisa.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //chamar metodo que ira preencher a lista de produtos
-        //quando o PesquisaFragment for criado, essa funcao vai ser chamada e setar o adapter da rvPesquisa
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-
-        HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
-
+        //preenchendo a lista com produtos categorizados
         if(categoria != "") {
-            LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosLD(this.categoria);
+            LiveData<List<Produto>> prodLiveData = homeViewModel.getProdutosLD(this.categoria);
             prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
                 @Override
                 public void onChanged(List<Produto> produtos) {
@@ -143,8 +222,9 @@ public class PesquisaFragment extends Fragment {
                 }
             });
         }
+        //preenchendo a lista com produtos pesquisados
         else if (pesquisa != "") {
-            LiveData<List<Produto>> prodLiveData = mViewModel.getProdutosPesquisaLD(this.pesquisa);
+            LiveData<List<Produto>> prodLiveData = homeViewModel.getProdutosPesquisaLD(this.pesquisa);
             prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
                 @Override
                 public void onChanged(List<Produto> produtos) {
