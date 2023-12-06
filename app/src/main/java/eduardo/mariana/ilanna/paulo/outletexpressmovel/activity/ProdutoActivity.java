@@ -85,7 +85,18 @@ public class ProdutoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String quantidade = qtd.getText().toString();
-                produtoViewModel.addProdutoNoCarrinho(codigo_produto, quantidade);
+                LiveData<Boolean> resultado = produtoViewModel.addProdutoNoCarrinho(codigo_produto, quantidade);
+                resultado.observe(ProdutoActivity.this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean resultado) {
+                        if(resultado){
+                            Toast.makeText(ProdutoActivity.this, "Produto adicionado ao Carrinho com Sucesso", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(ProdutoActivity.this, "Produto não adicionado ao Carrinho", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
             }
         });

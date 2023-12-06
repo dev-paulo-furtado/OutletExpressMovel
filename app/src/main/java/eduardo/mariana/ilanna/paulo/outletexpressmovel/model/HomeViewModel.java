@@ -89,9 +89,9 @@ public class HomeViewModel extends AndroidViewModel {
 
         return produtosLD;
     }
-/*
 
-    public LiveData<List<ItemCarrinho>> getCarrinhoLD(){
+
+    public LiveData<List<ItemCarrinho>> getCarrinhoLD(String email){
 
         MutableLiveData<List<ItemCarrinho>> CarrinhoLD = new MutableLiveData<>();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -100,21 +100,21 @@ public class HomeViewModel extends AndroidViewModel {
              * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
              * de execução.
              */
-    /*
+
             @Override
             public void run() {
 
                 ProductsRepository productsRepository = new ProductsRepository(getApplication());
 
-               // List<ItemCarrinho> ic = productsRepository.getItensCarrinho();
+                List<ItemCarrinho> ic = productsRepository.getItensCarrinho(email);
 
-                //CarrinhoLD.postValue(ic);
+                CarrinhoLD.postValue(ic);
             }
         });
 
         return CarrinhoLD;
     }
-*/
+
 
     public LiveData<Perfil> getDetalhesPerfil() {
 

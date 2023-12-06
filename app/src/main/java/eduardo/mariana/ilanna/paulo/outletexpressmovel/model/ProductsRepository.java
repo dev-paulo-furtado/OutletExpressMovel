@@ -681,8 +681,8 @@ public class ProductsRepository {
         return comentariosList;
     }
 
-    /*
-    public List<ItemCarrinho> getItensCarrinho() {
+
+    public List<ItemCarrinho> getItensCarrinho(String email) {
         // cria a lista de produtos incicialmente vazia, que será retornada como resultado
         List<ItemCarrinho> ItemCarrinhoList = new ArrayList<>();
 
@@ -692,10 +692,10 @@ public class ProductsRepository {
         //String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"dados_comentario.php", "GET", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"dados_item_carrinho.php", "GET", "UTF-8");
         //httpRequest.addParam("limit", limit.toString());
         //httpRequest.addParam("offset", offSet.toString());
-        HttpRequest.addParam("codigo", codigo);
+        httpRequest.addParam("email", email);
 
         // Para esta ação, é preciso estar logado. Então na requisição HTTP setamos o login e senha do
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
@@ -744,7 +744,7 @@ public class ProductsRepository {
 
                 // A chave produtos é um array de objetos do tipo json (JSONArray), onde cada um desses representa
                 // um produto
-                JSONArray jsonArray = jsonObject.getJSONArray("comentarios");
+                JSONArray jsonArray = jsonObject.getJSONArray("produtos");
 
                 // Cada elemento do JSONArray é um JSONObject que guarda os dados de um produto
                 for(int i = 0; i < jsonArray.length(); i++) {
@@ -754,17 +754,19 @@ public class ProductsRepository {
 
                     // Obtemos os dados de um produtos via JSONObject
                     String nome = jComentario.getString("nome");
-                    String conteudo = jComentario.getString("conteudo");
-                    String avaliacao = jComentario.getString("avaliacao");
+                    String imagem = jComentario.getString("imagem");
+                    String valor_atual = jComentario.getString("valor_atual");
+                    String quantidade = jComentario.getString("quantidade");
 
                     // Criamo um objeto do tipo Product para guardar esses dados
-                    Comentario comentario = new Comentario();
-                    comentario.nome_cliente = nome;
-                    comentario.conteudo = conteudo;
-                    comentario.avaliacao = Float.parseFloat(avaliacao);
+                    ItemCarrinho itemCarrinho = new ItemCarrinho();
+                    itemCarrinho.produto.nome_produto = nome;
+                    itemCarrinho.produto.imagem = imagem;
+                    itemCarrinho.produto.valor_atual = valor_atual;
+                    itemCarrinho.quantidade = Integer.parseInt(quantidade);
 
                     // Adicionamos o objeto product na lista de produtos
-                    comentariosList.add(comentario);
+                    ItemCarrinhoList.add(itemCarrinho);
                 }
             }
         } catch (IOException e) {
@@ -774,9 +776,9 @@ public class ProductsRepository {
             Log.e("HTTP RESULT", result);
         }
 
-        return comentariosList;
+        return ItemCarrinhoList;
     }
-    */
+
     public Boolean addProdutoNoCarrinho(String codigo_produto, String quantidade) {
 
         String login = Config.getLogin(context);

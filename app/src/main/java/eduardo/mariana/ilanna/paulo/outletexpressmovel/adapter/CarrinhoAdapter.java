@@ -18,6 +18,7 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PesquisaFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
 public class CarrinhoAdapter extends RecyclerView.Adapter {
 
@@ -33,7 +34,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(homeActivity);
-        View v = inflater.inflate(R.layout.itemlist_horizontal, parent, false);
+        View v = inflater.inflate(R.layout.itemlist_carrinho, parent, false);
         return new CarrinhoViewHolder(v);
     }
 
@@ -42,10 +43,15 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
         ItemCarrinho itemCarrinho = itensCarrinho.get(position);
         View v = holder.itemView;
 
-        ImageView imvCarrinho = v.findViewById(R.id.imvCarrinho);
 
-        //corrigir imagem no onBindView
-        //imvCarrinho.setImageURI(itemCarrinho.produto.imagem);
+        //preenche a imagem do produto
+        // preenche o campo de foto
+        int w = (int) homeActivity.getResources().getDimension(R.dimen.thumb_width);
+        int h = (int) homeActivity.getResources().getDimension(R.dimen.thumb_height);
+        ImageView imvCarrinho = holder.itemView.findViewById(R.id.imvCarrinho);
+        // somente agora o a imagem é obtida do servidor. Caso a imagem já esteja salva no cache da app,
+        // não baixamos ela de novo
+        ImageCache.loadImageUrlToImageView(homeActivity, itemCarrinho.produto.imagem, imvCarrinho, w, h);
 
         TextView tvItemCarNome = v.findViewById(R.id.tvItemCarNome);
         tvItemCarNome.setText(itemCarrinho.produto.nome_produto);

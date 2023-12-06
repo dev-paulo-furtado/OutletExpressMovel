@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,8 +102,14 @@ public class PesquisaFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 // sign in the user ...
-                                SeekBar sbFiltroPreco = getView().findViewById(R.id.sbFiltroPrecoMin);
-                                //sbFiltroPreco.
+                                SeekBar sbFiltroPrecoMin = getView().findViewById(R.id.sbFiltroPrecoMin);
+                                int precoMin = sbFiltroPrecoMin.getProgress();
+
+                                SeekBar sbFiltroPrecoMax = getView().findViewById(R.id.sbFiltroPrecoMax);
+                                int precoMax = sbFiltroPrecoMax.getProgress();
+
+                                Log.e("precoMin: ", String.valueOf(precoMin));
+                                Log.e("precoMax: ", String.valueOf(precoMax));
 
                             }
                         })

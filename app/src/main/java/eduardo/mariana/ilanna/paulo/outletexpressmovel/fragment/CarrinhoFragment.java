@@ -24,6 +24,7 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +83,7 @@ public class CarrinhoFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_carrinho, container, false);
     }
-/*
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -94,7 +95,7 @@ public class CarrinhoFragment extends Fragment {
 
         HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
-        LiveData<List<ItemCarrinho>> prodLiveData = mViewModel.getCarrinhoLD();
+        LiveData<List<ItemCarrinho>> prodLiveData = mViewModel.getCarrinhoLD(Config.getLogin(homeActivity));
         prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<ItemCarrinho>>() {
             @Override
             public void onChanged(List<ItemCarrinho> itensCarrinho) {
@@ -105,5 +106,5 @@ public class CarrinhoFragment extends Fragment {
 
         //homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
 
-    }*/
+    }
 }
