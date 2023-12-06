@@ -42,21 +42,22 @@
         app:layout_constraintTop_toBottomOf="@+id/tvItemCarNome" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btnLowQtdCarrinho"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:backgroundTint="@color/secondaryColor"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/primaryColor"
         android:text="-"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvItemCarPreco"
-        tools:layout_editor_absoluteX="268dp" />
+        app:layout_constraintEnd_toStartOf="@+id/tvItemCarQtd"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemCarPreco" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/btnAddQtdCarrinho"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/secondaryColor"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/primaryColor"
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,10 +67,22 @@
         android:id="@+id/tvItemCarQtd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button11"
-        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddQtdCarrinho"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemCarPreco" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/secondaryColor"
+        android:text="x"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnLowQtdCarrinho"
+        app:layout_constraintStart_toEndOf="@+id/imvCarrinho"
         app:layout_constraintTop_toBottomOf="@+id/tvItemCarPreco" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,11 +58,41 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
         tvItemCarNome.setText(itemCarrinho.produto.nome_produto);
 
         TextView tvItemCarPreco = v.findViewById(R.id.tvItemCarPreco);
-        tvItemCarPreco.setText(itemCarrinho.produto.valor_atual);
+        tvItemCarPreco.setText("R$ " + itemCarrinho.produto.valor_atual);
 
         TextView tvItemCarQtd = v.findViewById(R.id.tvItemCarQtd);
-        tvItemCarQtd.setText(itemCarrinho.quantidade);
+        tvItemCarQtd.setText(Integer.toString(itemCarrinho.quantidade));
 
+        Button btnAddQtdCarrinho = v.findViewById(R.id.btnAddQtdCarrinho);
+        btnAddQtdCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //System.out.println(qtd.getText().toString());
+                //System.out.println(Integer.parseInt(qtd.getText().toString()));
+                //System.out.println(Integer.parseInt(qtd.getText().toString()) + 1);
+                int nova_qtd = Integer.parseInt(tvItemCarQtd.getText().toString()) + 1;
+                if(nova_qtd > 20){
+                    nova_qtd = 20;
+                }
+                //System.out.println(nova_qtd);
+                tvItemCarQtd.setText(String.valueOf(nova_qtd));
+            }
+        });
+
+        Button btnLowQtdCarrinho = v.findViewById(R.id.btnLowQtdCarrinho);
+        btnLowQtdCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //System.out.println(qtd.getText().toString());
+                //System.out.println(Integer.parseInt(qtd.getText().toString()));
+                //System.out.println(Integer.parseInt(qtd.getText().toString()) - 1);
+                int nova_qtd = Integer.parseInt(tvItemCarQtd.getText().toString()) - 1;
+                if(nova_qtd < 1){
+                    nova_qtd = 1;
+                }
+                tvItemCarQtd.setText(String.valueOf(nova_qtd));
+            }
+        });
        /*
         v.setOnClickListener(new View.OnClickListener() {
             @Override

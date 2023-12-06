@@ -695,8 +695,8 @@ public class ProductsRepository {
 
         // Para obter a lista de produtos é preciso estar logado. Então primeiro otemos o login e senha
         // salvos na app.
-        //String login = Config.getLogin(context);
-        //String password = Config.getPassword(context);
+        String login = Config.getLogin(context);
+        String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
         HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"dados_item_carrinho.php", "GET", "UTF-8");
@@ -708,7 +708,7 @@ public class ProductsRepository {
         // usuário. Ao executar a requisição, o login e senha do usuário serão enviados ao servidor web,
         // o qual verificará se o login e senha batem com aquilo que está no BD. Somente depois dessa
         // verificação de autenticação é que o servidor web irá realizar esta ação.
-        //httpRequest.setBasicAuth(login, password);
+        httpRequest.setBasicAuth(login, password);
 
         String result = "";
         try {
@@ -736,7 +736,7 @@ public class ProductsRepository {
             // Fecha a conexão com o servidor web.
             httpRequest.finish();
 
-            Log.i("HTTP COMMENTS RESULT", result);
+            Log.i("HTTP PRODUCTS RESULT", result);
 
             // A classe JSONObject recebe como parâmetro do construtor uma String no formato JSON e
             // monta internamente uma estrutura de dados similar ao dicionário em python.
@@ -751,26 +751,28 @@ public class ProductsRepository {
 
                 // A chave produtos é um array de objetos do tipo json (JSONArray), onde cada um desses representa
                 // um produto
-                JSONArray jsonArray = jsonObject.getJSONArray("produtos");
+                JSONArray jsonArray = jsonObject.getJSONArray("itensCarrinho");
 
                 // Cada elemento do JSONArray é um JSONObject que guarda os dados de um produto
                 for(int i = 0; i < jsonArray.length(); i++) {
 
                     // Obtemos o JSONObject referente a um produto
-                    JSONObject jComentario = jsonArray.getJSONObject(i);
+                    JSONObject jProduto = jsonArray.getJSONObject(i);
 
                     // Obtemos os dados de um produtos via JSONObject
-                    String nome = jComentario.getString("nome");
-                    String imagem = jComentario.getString("imagem");
-                    String valor_atual = jComentario.getString("valor_atual");
-                    String quantidade = jComentario.getString("quantidade");
+                    String nome = jProduto.getString("nome");
+                    String imagem = jProduto.getString("imagem");
+                    String valor_atual = jProduto.getString("valor_atual");
+                    String quantidade = jProduto.getString("quantidade");
+
 
                     // Criamo um objeto do tipo Product para guardar esses dados
-                    ItemCarrinho itemCarrinho = new ItemCarrinho();
-                    itemCarrinho.produto.nome_produto = nome;
-                    itemCarrinho.produto.imagem = imagem;
-                    itemCarrinho.produto.valor_atual = valor_atual;
-                    itemCarrinho.quantidade = Integer.parseInt(quantidade);
+
+                    Produto p = new Produto();
+                    p.nome_produto = nome;
+                    p.imagem = imagem;
+                    p.valor_atual = valor_atual;
+                    ItemCarrinho itemCarrinho = new ItemCarrinho(p,Integer.parseInt(quantidade));
 
                     // Adicionamos o objeto product na lista de produtos
                     ItemCarrinhoList.add(itemCarrinho);
