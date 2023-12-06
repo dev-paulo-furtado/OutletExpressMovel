@@ -106,7 +106,12 @@ public class ProdutoActivity extends AppCompatActivity {
         btnComprarAgora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Navega para tela de compra
+                Intent i = new Intent(ProdutoActivity.this, CompraActivity.class);
+                i.putExtra("codigo_produto",codigo_produto);
+                String quantidade = qtd.toString();
+                i.putExtra("quantidade",quantidade);
+                startActivity(i);
             }
         });
 

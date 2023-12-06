@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Categoria;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCompra;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import kotlinx.coroutines.CoroutineScope;
@@ -175,16 +176,16 @@ public class HomeViewModel extends AndroidViewModel {
 
         return produtosPesquisaLD;
     }
-    public LiveData<List<Produto>> getProdutosComprados(String email) {
+    public LiveData<List<ItemCompra>> getProdutosComprados(String email) {
 
-        MutableLiveData<List<Produto>> produtosComprados = new MutableLiveData<>();
+        MutableLiveData<List<ItemCompra>> produtosComprados = new MutableLiveData<>();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 ProductsRepository productsRepository = new ProductsRepository(getApplication());
 
-                List<Produto> p = productsRepository.produtosComprados(email);
+                List<ItemCompra> p = productsRepository.produtosComprados();
 
                 produtosComprados.postValue(p);
             }

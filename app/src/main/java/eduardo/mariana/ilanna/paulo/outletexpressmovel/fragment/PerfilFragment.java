@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,10 @@ import java.util.List;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.LoginActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.ComprasAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCompra;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Perfil;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
@@ -56,7 +59,9 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //Log.i("criou perfil ",);
         return inflater.inflate(R.layout.fragment_perfil, container, false);
+
     }
 
     @Override
@@ -74,6 +79,7 @@ public class PerfilFragment extends Fragment {
         // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
         // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
         // entregou para a app.
+        System.out.println("SOCORRO ");
         LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil();
 
         // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
@@ -92,9 +98,6 @@ public class PerfilFragment extends Fragment {
 
                     TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
                     tvEmailPerfil.setText(perfil.email);
-
-
-
                 }
                 else {
                     Toast.makeText(getActivity(), "Não foi possível obter os detalhes do usuario", Toast.LENGTH_LONG).show();
@@ -111,23 +114,24 @@ public class PerfilFragment extends Fragment {
         // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
         // entregou para a app.
 
-        TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
-        String email = (String) tvEmailPerfil.getText();
+        //TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
+        //String email = (String) tvEmailPerfil.getText();
+        System.out.println("EMAIL: " + Config.getLogin(getContext()));
 
         RecyclerView rvProdutosComprados = (RecyclerView) view.findViewById(R.id.rvProdutosComprados);
         rvProdutosComprados.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LiveData<List<Produto>> produtosComprados = homeViewModel.getProdutosComprados(email);
-
+        LiveData<List<ItemCompra>> produtosComprados = homeViewModel.getProdutosComprados(Config.getLogin(getContext()));
+        System.out.println("dps de produtosComprados");
         // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
         // será guardado dentro do LiveData. Neste momento o
         // LiveData avisa que o produto chegou chamando o método onChanged abaixo.
-        produtosComprados.observe(getViewLifecycleOwner(), new Observer<List<Produto>>() {
+        produtosComprados.observe(getViewLifecycleOwner(), new Observer<List<ItemCompra>>() {
             @Override
-            public void onChanged(List<Produto> produtos) {
-
-                PesquisaAdapter pesquisaAdapter = new PesquisaAdapter(homeActivity, produtos);
-                rvProdutosComprados.setAdapter(pesquisaAdapter);
+            public void onChanged(List<ItemCompra> produtos) {
+                //Log.i("produtinhos", produtos);
+                ComprasAdapter comprasAdapter = new ComprasAdapter(homeActivity, produtos);
+                rvProdutosComprados.setAdapter(comprasAdapter);
             }
         });
 
