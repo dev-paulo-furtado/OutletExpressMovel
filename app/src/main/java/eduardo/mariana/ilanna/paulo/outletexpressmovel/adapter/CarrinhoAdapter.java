@@ -92,7 +92,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
                     carrinhoFragment.atualizarQtdItem(itemCarrinho.produto.codigo, nova_qtd);
                 }
                 //System.out.println(nova_qtd);
-                tvItemCarQtd.setText(String.valueOf(nova_qtd));
+                //tvItemCarQtd.setText(String.valueOf(nova_qtd));
             }
         });
 
@@ -110,7 +110,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
                     carrinhoFragment.atualizarQtdItem(itemCarrinho.produto.codigo, nova_qtd);
                 }
 
-                tvItemCarQtd.setText(String.valueOf(nova_qtd));
+                //tvItemCarQtd.setText(String.valueOf(nova_qtd));
             }
         });
 

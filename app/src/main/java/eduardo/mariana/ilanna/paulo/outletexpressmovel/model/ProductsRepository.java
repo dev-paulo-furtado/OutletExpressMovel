@@ -589,7 +589,7 @@ public class ProductsRepository {
             e.printStackTrace();
             Log.e("HTTP RESULT", result);
         }
-        Log.i("comprasList: ", comprasList.get(0).nome_produto);
+        //Log.i("comprasList: ", comprasList.get(0).nome_produto);
         return comprasList;
     }
 

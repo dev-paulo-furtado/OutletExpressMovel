@@ -164,13 +164,15 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onChanged(Boolean delLiveData) {
                 if(delLiveData){
-                    Toast.makeText(getActivity(), "Item removido do Carrinho com Sucesso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Item atualizado no Carrinho com Sucesso", Toast.LENGTH_LONG).show();
                     HomeActivity homeActivity = (HomeActivity) getActivity();
 
-                    homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
+                    TextView tvItemCarQtd = homeActivity.findViewById(R.id.tvItemCarQtd);
+                    tvItemCarQtd.setText(Integer.toString(qtd));
+                    //homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
                 }
                 else {
-                    Toast.makeText(getActivity(), "Erro ao remover item do Carrinho", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Erro ao atualizar item no Carrinho", Toast.LENGTH_LONG).show();
                 }
             }
         });

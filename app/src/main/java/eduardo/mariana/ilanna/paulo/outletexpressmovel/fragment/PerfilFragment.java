@@ -131,7 +131,7 @@ public class PerfilFragment extends Fragment {
         });
 
         //botao editar senha
-        Button btnAlterarSenha = view.findViewById(R.id.btnAlterarSenha);
+        /*Button btnAlterarSenha = view.findViewById(R.id.btnAlterarSenha);
         btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,10 +158,10 @@ public class PerfilFragment extends Fragment {
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
-        });
+        });*/
 
         //botao editar senha
-        ImageButton btnAlterarNome = view.findViewById(R.id.btnAlterarNome);
+        /*ImageButton btnAlterarNome = view.findViewById(R.id.btnAlterarNome);
         btnAlterarNome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +188,7 @@ public class PerfilFragment extends Fragment {
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
-        });
+        });*/
 
         //botao sair da conta
         Button btnLogin = view.findViewById(R.id.btnSair);
