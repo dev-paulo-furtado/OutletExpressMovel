@@ -4,6 +4,7 @@ import android.app.Application;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,7 +14,7 @@ import java.util.concurrent.Executors;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.CompraActivity;
 
-public class CompraViewModel extends ViewModel {
+public class CompraViewModel extends AndroidViewModel {
     public CompraViewModel(@NonNull Application application) {
         super(application);
     }
