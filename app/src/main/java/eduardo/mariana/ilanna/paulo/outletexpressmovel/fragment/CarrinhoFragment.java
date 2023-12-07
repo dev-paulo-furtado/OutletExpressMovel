@@ -1,5 +1,6 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.CompraActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CarrinhoAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
@@ -33,6 +39,8 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
  */
 public class CarrinhoFragment extends Fragment {
 
+    HomeViewModel mViewModel;
+    HomeActivity homeActivity;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,20 +99,81 @@ public class CarrinhoFragment extends Fragment {
         RecyclerView rvCarrinho = (RecyclerView) view.findViewById(R.id.rvCarrinho);
         rvCarrinho.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        HomeActivity homeActivity = (HomeActivity) getActivity();
+        homeActivity = (HomeActivity) getActivity();
 
-        HomeViewModel mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
+        mViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
-        LiveData<List<ItemCarrinho>> prodLiveData = mViewModel.getCarrinhoLD(Config.getLogin(homeActivity));
+        List<ItemCarrinho> itens_carrinho= new ArrayList<ItemCarrinho>();
+        LiveData<List<ItemCarrinho>> prodLiveData = mViewModel.getCarrinhoLD();
         prodLiveData.observe(getViewLifecycleOwner(), new Observer<List<ItemCarrinho>>() {
             @Override
             public void onChanged(List<ItemCarrinho> itensCarrinho) {
-                CarrinhoAdapter carrinhoAdapter = new CarrinhoAdapter(homeActivity, itensCarrinho);
+                CarrinhoAdapter carrinhoAdapter = new CarrinhoAdapter(homeActivity, itensCarrinho, CarrinhoFragment.this);
                 rvCarrinho.setAdapter(carrinhoAdapter);
+
+                List<ItemCarrinho> carrinho = prodLiveData.getValue();
+                float total = 0;
+                for (int i = 0; i < carrinho.size(); i++) {
+                    float preco = Float.parseFloat(carrinho.get(i).produto.valor_atual);
+                    total += preco * carrinho.get(i).quantidade;
+                }
+
+                TextView tvItemCarPreco =  homeActivity.findViewById(R.id.tvTotalCarrinho);
+                tvItemCarPreco.setText("R$ " + String.format("%.2f",total));
+
             }
         });
 
-        //homeActivity.setFragment(OfertasFragment.newInstance(),R.id.flOfertas);
+        Button btnComprarTudo = homeActivity.findViewById(R.id.btnComprarTudo);
+        btnComprarTudo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(homeActivity, CompraActivity.class);
+                System.out.println(itens_carrinho.toArray().toString());
+                i.putExtra("abc",itens_carrinho.toArray().toString());
+
+            }
+        });
 
     }
+
+    public void excluirItemCarrinho(int id) {
+        LiveData<Boolean> delLiveData = mViewModel.getResultDeleteLD(id);
+
+        delLiveData.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean delLiveData) {
+                if(delLiveData){
+                    Toast.makeText(getActivity(), "Item removido do Carrinho com Sucesso", Toast.LENGTH_LONG).show();
+                    HomeActivity homeActivity = (HomeActivity) getActivity();
+
+                    homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
+                }
+                else {
+                    Toast.makeText(getActivity(), "Erro ao remover item do Carrinho", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void atualizarQtdItem(int id, int qtd) {
+
+        LiveData<Boolean> delLiveData = mViewModel.getUpdateQtd(id, qtd);
+
+        delLiveData.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean delLiveData) {
+                if(delLiveData){
+                    Toast.makeText(getActivity(), "Item removido do Carrinho com Sucesso", Toast.LENGTH_LONG).show();
+                    HomeActivity homeActivity = (HomeActivity) getActivity();
+
+                    homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
+                }
+                else {
+                    Toast.makeText(getActivity(), "Erro ao remover item do Carrinho", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
 }

@@ -9,26 +9,37 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.HomeActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.activity.ProdutoActivity;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.PesquisaFragment;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
 public class CarrinhoAdapter extends RecyclerView.Adapter {
 
     public HomeActivity homeActivity;
     public List<ItemCarrinho> itensCarrinho;
+    CarrinhoFragment carrinhoFragment;
 
-    public CarrinhoAdapter(HomeActivity homeActivity, List<ItemCarrinho> itensCarrinho) {
+    public CarrinhoAdapter(HomeActivity homeActivity, List<ItemCarrinho> itensCarrinho, CarrinhoFragment carrinhoFragment) {
         this.homeActivity = homeActivity;
         this.itensCarrinho = itensCarrinho;
+        this.carrinhoFragment = carrinhoFragment;
     }
 
     @NonNull
@@ -43,6 +54,9 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ItemCarrinho itemCarrinho = itensCarrinho.get(position);
         View v = holder.itemView;
+
+
+        HomeViewModel homeViewModel = new ViewModelProvider(homeActivity).get(HomeViewModel.class);
 
 
         //preenche a imagem do produto
@@ -63,6 +77,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
         TextView tvItemCarQtd = v.findViewById(R.id.tvItemCarQtd);
         tvItemCarQtd.setText(Integer.toString(itemCarrinho.quantidade));
 
+
         Button btnAddQtdCarrinho = v.findViewById(R.id.btnAddQtdCarrinho);
         btnAddQtdCarrinho.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +88,8 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
                 int nova_qtd = Integer.parseInt(tvItemCarQtd.getText().toString()) + 1;
                 if(nova_qtd > 20){
                     nova_qtd = 20;
+                } else {
+                    carrinhoFragment.atualizarQtdItem(itemCarrinho.produto.codigo, nova_qtd);
                 }
                 //System.out.println(nova_qtd);
                 tvItemCarQtd.setText(String.valueOf(nova_qtd));
@@ -89,8 +106,20 @@ public class CarrinhoAdapter extends RecyclerView.Adapter {
                 int nova_qtd = Integer.parseInt(tvItemCarQtd.getText().toString()) - 1;
                 if(nova_qtd < 1){
                     nova_qtd = 1;
+                }else {
+                    carrinhoFragment.atualizarQtdItem(itemCarrinho.produto.codigo, nova_qtd);
                 }
+
                 tvItemCarQtd.setText(String.valueOf(nova_qtd));
+            }
+        });
+
+
+        Button btnDeleteCarrinho = v.findViewById(R.id.btnDeleteCarrinho);
+        btnDeleteCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                carrinhoFragment.excluirItemCarrinho(itemCarrinho.produto.codigo);
             }
         });
        /*

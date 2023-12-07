@@ -92,7 +92,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<ItemCarrinho>> getCarrinhoLD(String email){
+    public LiveData<List<ItemCarrinho>> getCarrinhoLD(){
 
         MutableLiveData<List<ItemCarrinho>> CarrinhoLD = new MutableLiveData<>();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -107,7 +107,7 @@ public class HomeViewModel extends AndroidViewModel {
 
                 ProductsRepository productsRepository = new ProductsRepository(getApplication());
 
-                List<ItemCarrinho> ic = productsRepository.getItensCarrinho(email);
+                List<ItemCarrinho> ic = productsRepository.getItensCarrinho();
 
                 CarrinhoLD.postValue(ic);
             }
@@ -116,6 +116,53 @@ public class HomeViewModel extends AndroidViewModel {
         return CarrinhoLD;
     }
 
+    public LiveData<Boolean> getResultDeleteLD(int idProduto){
+
+        MutableLiveData<Boolean> getResultDeleteLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                Boolean deleted = productsRepository.deleteItemCarrinho(idProduto);
+
+                getResultDeleteLD.postValue(deleted);
+            }
+        });
+
+        return getResultDeleteLD;
+    }
+
+    public LiveData<Boolean> getUpdateQtd(int idProduto, int quantidade){
+
+        MutableLiveData<Boolean> getUpdateQtd = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                Boolean deleted = productsRepository.updateItemCarrinho(idProduto, quantidade);
+
+                getUpdateQtd.postValue(deleted);
+            }
+        });
+
+        return getUpdateQtd;
+    }
 
     public LiveData<Perfil> getDetalhesPerfil() {
 

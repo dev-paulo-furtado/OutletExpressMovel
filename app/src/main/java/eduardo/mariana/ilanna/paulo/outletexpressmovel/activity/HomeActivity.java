@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -23,13 +26,14 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 
 public class HomeActivity extends AppCompatActivity {
 
+    HomeViewModel vm;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final HomeViewModel vm = new ViewModelProvider(this).get(HomeViewModel.class);
+        vm = new ViewModelProvider(this).get(HomeViewModel.class);
 
         bottomNavigationView = findViewById(R.id.btmNavView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -82,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
 
 
