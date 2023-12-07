@@ -114,15 +114,10 @@ public class PerfilFragment extends Fragment {
         // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
         // entregou para a app.
 
-        //TextView tvEmailPerfil = view.findViewById(R.id.tvEmailPerfil);
-        //String email = (String) tvEmailPerfil.getText();
-        System.out.println("EMAIL: " + Config.getLogin(getContext()));
-
         RecyclerView rvProdutosComprados = (RecyclerView) view.findViewById(R.id.rvProdutosComprados);
         rvProdutosComprados.setLayoutManager(new LinearLayoutManager(getContext()));
 
         LiveData<List<ItemCompra>> produtosComprados = homeViewModel.getProdutosComprados(Config.getLogin(getContext()));
-        System.out.println("dps de produtosComprados");
         // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
         // será guardado dentro do LiveData. Neste momento o
         // LiveData avisa que o produto chegou chamando o método onChanged abaixo.

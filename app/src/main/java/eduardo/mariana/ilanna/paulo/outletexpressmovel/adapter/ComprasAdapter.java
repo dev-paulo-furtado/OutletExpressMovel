@@ -38,7 +38,6 @@ public class ComprasAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //ItemCompra itemCompra = compras.get(position);
         View v = holder.itemView;
-        System.out.println("ComprasAdapter onBindViewHolder !!!");
 
         RecyclerView rvCompras = v.findViewById(R.id.rvCompras);
         rvCompras.setLayoutManager(new LinearLayoutManager(v.getContext()));
@@ -49,11 +48,12 @@ public class ComprasAdapter extends RecyclerView.Adapter{
         float total = 0;
         for(int i = 0; i < compras.size(); i++){
             ItemCompra ic = compras.get(i);;
-            total += ic.valor_item;
+            total += ic.valor_item * ic.quantidade;
         }
 
         TextView tvComprasTotal = v.findViewById(R.id.tvComprasTotal);
-        tvComprasTotal.setText(String.valueOf(total));
+        String valor = String.format("%.2f", total);
+        tvComprasTotal.setText("R$ " + valor);
 
     }
 

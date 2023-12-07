@@ -214,4 +214,48 @@ public class HomeViewModel extends AndroidViewModel {
 
         return produtosFiltradosLD;
     }
+
+    public LiveData<List<Produto>> getMaisCompradosLD() {
+        MutableLiveData<List<Produto>> maisCompradosLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.getMaisComprados();
+
+                maisCompradosLD.postValue(p);
+            }
+        });
+
+        return maisCompradosLD;
+    }
+
+    public LiveData<List<Produto>> getMelhoresAvaliadosLD() {
+        MutableLiveData<List<Produto>> melhoresAvaliadosLD = new MutableLiveData<>();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            /**
+             * Tudo o que colocármos dentro da função run abaixo será executada dentro da nova linha
+             * de execução.
+             */
+            @Override
+            public void run() {
+
+                ProductsRepository productsRepository = new ProductsRepository(getApplication());
+
+                List<Produto> p = productsRepository.getMelhoresAvaliados();
+
+                melhoresAvaliadosLD.postValue(p);
+            }
+        });
+
+        return melhoresAvaliadosLD;
+    }
 }
