@@ -23,6 +23,7 @@ public class ProdutoViewModel extends AndroidViewModel {
 
     public LiveData<Produto> getProductDetailsLD(String pid) {
 
+        //System.out.println("ProdutoViewModel");
         // Cria um container do tipo MutableLiveData (um LiveData que pode ter seu conteúdo alterado).
         MutableLiveData<Produto> productDetailLD = new MutableLiveData<>();
 
@@ -40,6 +41,7 @@ public class ProdutoViewModel extends AndroidViewModel {
              */
             @Override
             public void run() {
+                //System.out.println("ProdutoViewModel run");
 
                 // Criamos uma instância de ProductsRepository. É dentro dessa classe que estão os
                 // métodos que se comunicam com o servidor web.
@@ -54,7 +56,7 @@ public class ProdutoViewModel extends AndroidViewModel {
                 productDetailLD.postValue(p);
             }
         });
-
+        //System.out.println("return");
         return productDetailLD;
     }
 

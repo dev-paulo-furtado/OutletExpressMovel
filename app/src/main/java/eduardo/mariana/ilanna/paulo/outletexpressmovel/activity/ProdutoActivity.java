@@ -109,9 +109,11 @@ public class ProdutoActivity extends AppCompatActivity {
                 // Navega para tela de compra
                 Intent i = new Intent(ProdutoActivity.this, CompraActivity.class);
                 i.putExtra("codigo_produto",codigo_produto);
-                String quantidade = qtd.toString();
+                String quantidade = qtd.getText().toString();
                 i.putExtra("quantidade",quantidade);
                 startActivity(i);
+                finish();
+
             }
         });
 

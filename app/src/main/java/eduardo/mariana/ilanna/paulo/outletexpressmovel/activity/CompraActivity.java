@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.CompraViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.ProdutoViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCompra;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
@@ -33,7 +35,11 @@ public class CompraActivity extends AppCompatActivity {
 
         // Aqui nós obtemos o codigo do produto passado pela ProdutoActivity.
         Intent i = getIntent();
-        String codigo_produto = String.valueOf(i.getIntExtra("codigo_produto", 0));
+        String codigo_produto = i.getStringExtra("codigo_produto");
+        int codigo_produto_int = Integer.parseInt(codigo_produto);
+        String quantidade_produto = i.getStringExtra("quantidade");
+        int quantidade_produto_int = Integer.parseInt(quantidade_produto);
+
 
         //buscar valor do produto selecionado
         // obtemos o ViewModel pois é nele que está o método que se conecta ao servior web.
@@ -44,9 +50,18 @@ public class CompraActivity extends AppCompatActivity {
             public void onChanged(Produto produto) {
 
                 if(produto != null) {
+                    //calculo do valor total da compra
+                    float valor_produto = Float.parseFloat(produto.valor_atual);
+                    float valor_total = valor_produto * quantidade_produto_int;
+                    String valor = String.format("%.2f", valor_total);
+
+                    //setando na textview o valor total
                     TextView total = findViewById(R.id.tvTotal);
-                    String valor = String.format("%.2f", Float.parseFloat(produto.valor_atual));
                     total.setText("R$ " + valor);
+
+                    String nome_produto = produto.nome_produto;
+
+                    ItemCompra itemCompra = new ItemCompra(quantidade_produto_int, nome_produto, valor_produto, codigo_produto_int);
 
                 }
                 else {
@@ -83,16 +98,9 @@ public class CompraActivity extends AppCompatActivity {
 
                 LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado);
 
-                // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado indicando
-                // se o cadastro deu certo ou não será guardado dentro do LiveData. Neste momento o
-                // LiveData avisa que o resultado chegou chamando o método onChanged abaixo.
                 resultLD.observe(CompraActivity.this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        // aBoolean contém o resultado do cadastro. Se aBoolean for true, significa
-                        // que o cadastro do usuário foi feito corretamente. Indicamos isso ao usuário
-                        // através de uma mensagem do tipo toast e finalizamos a Activity. Quando
-                        // finalizamos a Activity, voltamos para a tela de login.
                         if(aBoolean) {
                             Toast.makeText(CompraActivity.this, "Nova compra registrada com sucesso", Toast.LENGTH_LONG).show();
                             // Navega para tela principal

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Produto {
     public int codigo;
+
     public String imagem;
     public String nome_produto;
     public String valor_atual;
