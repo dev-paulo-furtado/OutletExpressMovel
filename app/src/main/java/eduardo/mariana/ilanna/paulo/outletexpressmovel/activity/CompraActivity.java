@@ -100,18 +100,8 @@ public class CompraActivity extends AppCompatActivity {
                 EditText cpf = findViewById(R.id.etCpf);
                 String cpfSelecionado = cpf.getText().toString();
 
-                /// Obtendo a data e hora atuais
-                Calendar calendar = Calendar.getInstance();
-                int ano = calendar.get(Calendar.YEAR);
-                int mes = calendar.get(Calendar.MONTH) + 1; // Mês começa de 0
-                int dia = calendar.get(Calendar.DAY_OF_MONTH);
-                int hora = calendar.get(Calendar.HOUR_OF_DAY);
-                int minuto = calendar.get(Calendar.MINUTE);
-                int segundo = calendar.get(Calendar.SECOND);
-                String data_hora = ano + "-" + mes + "-" + dia + " " + hora + ":" + minuto + ":" + segundo;
-
                 CompraViewModel compraViewModel = new ViewModelProvider(CompraActivity.this).get(CompraViewModel.class);
-                LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado, data_hora);
+                LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado);
 
                 resultLD.observe(CompraActivity.this, new Observer<Boolean>() {
                     @Override
