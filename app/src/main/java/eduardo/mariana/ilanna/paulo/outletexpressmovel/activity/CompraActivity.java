@@ -96,6 +96,7 @@ public class CompraActivity extends AppCompatActivity {
                 EditText cpf = findViewById(R.id.etCpf);
                 String cpfSelecionado = cpf.getText().toString();
 
+                CompraViewModel compraViewModel = new ViewModelProvider(CompraActivity.this).get(CompraViewModel.class);
                 LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado);
 
                 resultLD.observe(CompraActivity.this, new Observer<Boolean>() {

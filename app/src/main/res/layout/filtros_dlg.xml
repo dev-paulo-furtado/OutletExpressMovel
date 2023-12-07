@@ -214,7 +214,7 @@
                         android:id="@+id/radioButton8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Arranhão " />
+                        android:text="Arranhão" />
 
                     <RadioButton
                         android:id="@+id/radioButton12"
@@ -232,101 +232,36 @@
                         android:id="@+id/radioButton9"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Embalagem danificada " />
+                        android:text="Embalagem danificada" />
 
                     <RadioButton
                         android:id="@+id/radioButton11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Modelo antigo " />
+                        android:text="Modelo antigo" />
 
                     <RadioButton
                         android:id="@+id/radioButton14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Peça ausente ou substituída " />
+                        android:text="Peça ausente ou substituída" />
 
                     <RadioButton
                         android:id="@+id/radioButton15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Item de devolução " />
+                        android:text="Item de devolução" />
 
                     <RadioButton
                         android:id="@+id/radioButton16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="RadioButton" />
+                        android:text="Pequeno defeito funcional" />
 
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Categoria de Produtos"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <RadioGroup
-                    android:id="@+id/rgCategoria"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-                    <RadioButton
-                        android:id="@+id/radioButton17"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Móvel" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Roupa" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton19"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Calçado" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton20"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eletrônico" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton21"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eletrodoméstico" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton22"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eletroportátil" />
-                </RadioGroup>
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

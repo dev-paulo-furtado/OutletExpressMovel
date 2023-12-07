@@ -132,7 +132,7 @@ public class PesquisaFragment extends Fragment {
                                 EditText etPrecoMaximo = dialogObject.findViewById(R.id.etPrecoMaximo);
                                 float precoMax = 0;
                                 if(etPrecoMaximo.getText().toString().isEmpty()){
-                                    precoMax = 0;
+                                    precoMax = 1000000000;
                                 }
                                 else{
                                     precoMax = Float.parseFloat(etPrecoMaximo.getText().toString());
@@ -178,13 +178,13 @@ public class PesquisaFragment extends Fragment {
                                     pesquisa = "%";
                                 }
 
-                                //Log.e("precoMin: ", String.valueOf(precoMin));
-                                //Log.e("precoMax: ", precoMax);
-                                //Log.e("filtroAvaliacao: ", String.valueOf(filtroAvaliacao));
-                                System.out.println(descontoSelecionado);
-                                System.out.println(avariaSelecionada);
-                                System.out.println(categoria);
-                                System.out.println(pesquisa);
+                                Log.e("precoMin: ", String.valueOf(precoMin));
+                                Log.e("precoMax: ", String.valueOf(precoMax));
+                                Log.e("filtroAvaliacao: ", String.valueOf(filtroAvaliacao));
+                                System.out.println("descontoSelecionado: " + descontoSelecionado);
+                                System.out.println("avariaSelecionada: " + avariaSelecionada);
+                                System.out.println("categoria: " + categoria);
+                                System.out.println("pesquisa: " + pesquisa);
 
                                 //preenchendo a lista com produtos filtrados
                                 LiveData<List<Produto>> produtosFiltrados = homeViewModel.getProdutosFiltradosLD(precoMin,precoMax,filtroAvaliacao,descontoSelecionado,avariaSelecionada,categoria,pesquisa);

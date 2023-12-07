@@ -959,7 +959,7 @@ public class ProductsRepository {
         //String password = Config.getPassword(context);
 
         // Cria uma requisição HTTP a adiona o parâmetros que devem ser enviados ao servidor
-        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL +"filtrar_produtos.php", "GET", "UTF-8");
+        HttpRequest httpRequest = new HttpRequest(Config.PRODUCTS_APP_URL + "filtrar_produtos.php", "GET", "UTF-8");
         //httpRequest.addParam("limit", limit.toString());
         //httpRequest.addParam("offset", offSet.toString());
         httpRequest.addParam("precoMin", String.valueOf(precoMin));
