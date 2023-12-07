@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.CompraViewModel;
@@ -99,20 +100,20 @@ public class CompraActivity extends AppCompatActivity {
                 EditText cpf = findViewById(R.id.etCpf);
                 String cpfSelecionado = cpf.getText().toString();
 
-                // Obtendo a data e hora atuais
-                LocalDateTime dataHoraAtual = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    dataHoraAtual = LocalDateTime.now();
-                }
+                /// Obtendo a data e hora atuais
+                Calendar calendar = Calendar.getInstance();
+                if (calendar != null) {
+                    int ano = calendar.get(Calendar.YEAR);
+                    int mes = calendar.get(Calendar.MONTH) + 1; // Mês começa de 0
+                    int dia = calendar.get(Calendar.DAY_OF_MONTH);
+                    int hora = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minuto = calendar.get(Calendar.MINUTE);
+                    int segundo = calendar.get(Calendar.SECOND);
 
-                // Formatando a data e hora no formato desejado ('2023-11-30 12:00:00 +0000')
-                DateTimeFormatter formatter = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    String dataHoraFormatada = dataHoraAtual.format(formatter);
-                    System.out.println("Data e hora atual formatadas: " + dataHoraFormatada);
+                    // Exibindo a data e hora atuais
+                    System.out.println("Data e hora atuais: " + ano + "-" + mes + "-" + dia + " " + hora + ":" + minuto + ":" + segundo);
+                } else {
+                    System.out.println("Não foi possível obter a data e hora atuais.");
                 }
 
                 CompraViewModel compraViewModel = new ViewModelProvider(CompraActivity.this).get(CompraViewModel.class);
