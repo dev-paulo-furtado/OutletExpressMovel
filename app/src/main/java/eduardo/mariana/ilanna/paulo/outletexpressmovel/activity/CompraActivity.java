@@ -18,6 +18,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.CompraViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.ProdutoViewModel;
@@ -95,6 +98,22 @@ public class CompraActivity extends AppCompatActivity {
                 //declarando cpf
                 EditText cpf = findViewById(R.id.etCpf);
                 String cpfSelecionado = cpf.getText().toString();
+
+                // Obtendo a data e hora atuais
+                LocalDateTime dataHoraAtual = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    dataHoraAtual = LocalDateTime.now();
+                }
+
+                // Formatando a data e hora no formato desejado ('2023-11-30 12:00:00 +0000')
+                DateTimeFormatter formatter = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
+                }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    String dataHoraFormatada = dataHoraAtual.format(formatter);
+                    System.out.println("Data e hora atual formatadas: " + dataHoraFormatada);
+                }
 
                 CompraViewModel compraViewModel = new ViewModelProvider(CompraActivity.this).get(CompraViewModel.class);
                 LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado);

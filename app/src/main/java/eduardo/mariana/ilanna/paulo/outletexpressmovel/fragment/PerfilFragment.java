@@ -79,7 +79,7 @@ public class PerfilFragment extends Fragment {
         // O método getProductDetailsLD retorna um LiveData, que na prática é um container que avisa
         // quando o resultado do servidor chegou. Ele guarda os detalhes de um produto que o servidor
         // entregou para a app.
-        System.out.println("SOCORRO ");
+        //System.out.println("SOCORRO ");
         LiveData<Perfil> perfil = homeViewModel.getDetalhesPerfil();
 
         // Aqui nós observamos o LiveData. Quando o servidor responder, o resultado contendo uma produto
