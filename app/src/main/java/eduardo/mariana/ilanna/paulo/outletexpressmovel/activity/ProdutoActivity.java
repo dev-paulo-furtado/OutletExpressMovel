@@ -23,10 +23,12 @@ import java.util.List;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.ComentarioAdapter;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.PesquisaAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.ProdutoViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Comentario;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.Config;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
 
 public class ProdutoActivity extends AppCompatActivity {
@@ -106,18 +108,22 @@ public class ProdutoActivity extends AppCompatActivity {
         btnComprarAgora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Navega para tela de compra
-                Intent i = new Intent(ProdutoActivity.this, CompraActivity.class);
-                i.putExtra("codigo_produto",codigo_produto);
-                String quantidade = qtd.getText().toString();
-                i.putExtra("quantidade",quantidade);
-                startActivity(i);
-                finish();
-
+                if(Config.getLogin(ProdutoActivity.this).isEmpty()) {
+                    Intent i = new Intent(ProdutoActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else {
+                    // Navega para tela de compra
+                    Intent i = new Intent(ProdutoActivity.this, CompraActivity.class);
+                    i.putExtra("codigo_produto",codigo_produto);
+                    String quantidade = qtd.getText().toString();
+                    i.putExtra("quantidade",quantidade);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
-
-
 
 
 

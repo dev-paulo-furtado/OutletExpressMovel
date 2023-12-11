@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +22,19 @@ import android.widget.Toast;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.R;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.CarrinhoAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.ComprasAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter.ItemCompraAdapter;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.fragment.CarrinhoFragment;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.CompraViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.HomeViewModel;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.model.ProdutoViewModel;
+import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCarrinho;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCompra;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.util.ImageCache;
@@ -74,6 +84,15 @@ public class CompraActivity extends AppCompatActivity {
 
                         ItemCompra itemCompra = new ItemCompra(quantidade_produto_int, nome_produto, valor_produto, codigo_produto_int);
 
+                        //exibindo os produtos selecionados para a compra
+                        RecyclerView rvProdutosSelecionados = findViewById(R.id.rvProdutosSelecionados);
+                        rvProdutosSelecionados.setLayoutManager(new LinearLayoutManager(CompraActivity.this));
+
+                        List<ItemCompra> listItemCompra = new ArrayList<ItemCompra>();
+                        listItemCompra.add(itemCompra);
+                        ItemCompraAdapter itemCompraAdapter = new ItemCompraAdapter(CompraActivity.this,listItemCompra);
+
+                        rvProdutosSelecionados.setAdapter(itemCompraAdapter);
                     }
                     else {
                         Toast.makeText(CompraActivity.this, "Não foi possível obter os detalhes do produto", Toast.LENGTH_LONG).show();
@@ -85,11 +104,40 @@ public class CompraActivity extends AppCompatActivity {
             this.codigo_produto = "";
             this.quantidade_produto = "";
 
+            HomeViewModel homeViewModel = new ViewModelProvider(CompraActivity.this).get(HomeViewModel.class);
+
+            List<ItemCarrinho> itens_carrinho= new ArrayList<ItemCarrinho>();
+            LiveData<List<ItemCarrinho>> prodLiveData = homeViewModel.getCarrinhoLD();
+            prodLiveData.observe(this, new Observer<List<ItemCarrinho>>() {
+                @Override
+                public void onChanged(List<ItemCarrinho> itensCarrinho) {
+                    List<ItemCompra> listItemCompra = new ArrayList<ItemCompra>();
+
+                    List<ItemCarrinho> carrinho = prodLiveData.getValue();
+                    float total = 0;
+                    for (int i = 0; i < carrinho.size(); i++) {
+                        ItemCarrinho itemCarrinho = carrinho.get(i);
+                        float preco = Float.parseFloat(itemCarrinho.produto.valor_atual);
+                        total += preco * itemCarrinho.quantidade;
+
+                        ItemCompra itemCompra = new ItemCompra(itemCarrinho.quantidade,itemCarrinho.produto.nome_produto,Float.parseFloat(itemCarrinho.produto.valor_atual),itemCarrinho.produto.codigo);
+                        listItemCompra.add(itemCompra);
+                    }
+
+                    RecyclerView rvProdutosSelecionados = findViewById(R.id.rvProdutosSelecionados);
+                    rvProdutosSelecionados.setLayoutManager(new LinearLayoutManager(CompraActivity.this));
+
+                    ItemCompraAdapter itemCompraAdapter = new ItemCompraAdapter(CompraActivity.this,listItemCompra);
+                    rvProdutosSelecionados.setAdapter(itemCompraAdapter);
+
+                    TextView tvTotal = findViewById(R.id.tvTotal);
+                    String valor = String.format("%.2f", total);
+                    tvTotal.setText("R$ " + valor);
+
+                }
+            });
 
         }
-
-
-
 
 
         //pegando todos os campos declarados pelo usuario na activity_compra quando clicar em finalizar compra

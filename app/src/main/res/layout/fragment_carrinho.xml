@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Total:"
+        android:text="TOTAL:"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnComprarTudo"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,6 +52,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="R$ 0"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnComprarTudo"

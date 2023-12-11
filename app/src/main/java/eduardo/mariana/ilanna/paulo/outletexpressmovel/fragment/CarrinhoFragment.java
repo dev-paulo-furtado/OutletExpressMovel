@@ -129,8 +129,6 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(homeActivity, CompraActivity.class);
-                //String codigo_cliente = Config.getLogin(getContext());
-                //i.putExtra("codigo_cliente", codigo_cliente);
                 startActivity(i);
                 homeActivity.finish();
             }
@@ -170,7 +168,7 @@ public class CarrinhoFragment extends Fragment {
 
                     TextView tvItemCarQtd = homeActivity.findViewById(R.id.tvItemCarQtd);
                     tvItemCarQtd.setText(Integer.toString(qtd));
-                    //homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
+                    homeActivity.setFragment(new CarrinhoFragment(),R.id.fragContainer);
                 }
                 else {
                     Toast.makeText(getActivity(), "Erro ao atualizar item no Carrinho", Toast.LENGTH_LONG).show();

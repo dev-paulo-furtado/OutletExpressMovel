@@ -1,5 +1,6 @@
 package eduardo.mariana.ilanna.paulo.outletexpressmovel.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +18,18 @@ import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.ItemCompra;
 import eduardo.mariana.ilanna.paulo.outletexpressmovel.object.Produto;
 
 public class ComprasAdapter extends RecyclerView.Adapter{
-    HomeActivity homeActivity;
+    Activity thisActivity;
     List<ItemCompra> compras;
 
-    public ComprasAdapter(HomeActivity homeActivity, List<ItemCompra> compras) {
-        this.homeActivity = homeActivity;
+    public ComprasAdapter(Activity thisActivity, List<ItemCompra> compras) {
+        this.thisActivity = thisActivity;
         this.compras = compras;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(homeActivity);
+        LayoutInflater inflater = LayoutInflater.from(thisActivity);
         View v = inflater.inflate(R.layout.itemlist_compra,parent,false);
         System.out.println("ComprasAdapter onCreateViewHolder !!!");
         return new PesquisaViewHolder(v);
@@ -42,7 +43,7 @@ public class ComprasAdapter extends RecyclerView.Adapter{
         RecyclerView rvCompras = v.findViewById(R.id.rvCompras);
         rvCompras.setLayoutManager(new LinearLayoutManager(v.getContext()));
 
-        ItemCompraAdapter itemCompraAdapter = new ItemCompraAdapter(this.homeActivity, this.compras);
+        ItemCompraAdapter itemCompraAdapter = new ItemCompraAdapter(this.thisActivity, this.compras);
         rvCompras.setAdapter(itemCompraAdapter);
 
         float total = 0;
