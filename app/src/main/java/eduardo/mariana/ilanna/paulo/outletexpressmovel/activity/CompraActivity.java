@@ -101,7 +101,7 @@ public class CompraActivity extends AppCompatActivity {
                 String cpfSelecionado = cpf.getText().toString();
 
                 CompraViewModel compraViewModel = new ViewModelProvider(CompraActivity.this).get(CompraViewModel.class);
-                LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado);
+                LiveData<Boolean> resultLD = compraViewModel.compra(pagamentoSelecionado, cpfSelecionado, cepSelecionado, ruaSelecionada, numeroSelecionado, codigo_produto_int);
 
                 resultLD.observe(CompraActivity.this, new Observer<Boolean>() {
                     @Override
