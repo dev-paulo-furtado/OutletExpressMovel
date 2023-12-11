@@ -61,7 +61,7 @@ public class HomeViewModel extends AndroidViewModel {
         categorias.add(new Categoria("Roupa", R.drawable.roupa));
         categorias.add(new Categoria("Calçado", R.drawable.calcado));
         categorias.add(new Categoria("Eletrodoméstico", R.drawable.eletrodomestico));
-        categorias.add(new Categoria("Eletroportáteis", R.drawable.eletroportatil));
+        categorias.add(new Categoria("Eletroportátil", R.drawable.eletroportatil));
         categorias.add(new Categoria("Eletrônico", R.drawable.eletronico));
         categorias.add(new Categoria("Móvel", R.drawable.movel));
 
