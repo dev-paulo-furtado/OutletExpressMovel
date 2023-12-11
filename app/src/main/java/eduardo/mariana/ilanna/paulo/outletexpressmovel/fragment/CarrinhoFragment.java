@@ -129,9 +129,10 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(homeActivity, CompraActivity.class);
-                System.out.println(itens_carrinho.toArray().toString());
-                i.putExtra("abc",itens_carrinho.toArray().toString());
-
+                //String codigo_cliente = Config.getLogin(getContext());
+                //i.putExtra("codigo_cliente", codigo_cliente);
+                startActivity(i);
+                homeActivity.finish();
             }
         });
 

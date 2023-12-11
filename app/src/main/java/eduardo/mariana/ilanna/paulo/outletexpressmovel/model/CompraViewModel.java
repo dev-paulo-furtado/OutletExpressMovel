@@ -19,7 +19,7 @@ public class CompraViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<Boolean> compra(String forma_pagamento, String cpf, String cep, String rua, Integer numero, Integer codigo_produto, Integer qtd) {
+    public LiveData<Boolean> compra(String forma_pagamento, String cpf, String cep, String rua, Integer numero, String codigo_produto, String qtd) {
 
         // Cria um container do tipo MutableLiveData (um LiveData que pode ter seu conteúdo alterado).
         MutableLiveData<Boolean> result = new MutableLiveData<>();

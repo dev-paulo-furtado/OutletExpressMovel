@@ -1175,7 +1175,7 @@ public class ProductsRepository {
 
     //(isset($_POST['forma_pagamento']) && isset($_POST['email']) && isset($_POST['cpf']) && isset($_POST['cep']) && isset($_POST['rua']) && isset($_POST['numero']))
 
-    public boolean compra(String forma_pagamento, String cpf, String cep, String rua, Integer numero, Integer codigo_produto, Integer qtd) {
+    public boolean compra(String forma_pagamento, String cpf, String cep, String rua, Integer numero, String codigo_produto, String qtd) {
 
         String login = Config.getLogin(context);
         String password = Config.getPassword(context);
@@ -1188,8 +1188,8 @@ public class ProductsRepository {
         httpRequest.addParam("cep", cep);
         httpRequest.addParam("rua", rua);
         httpRequest.addParam("numero", String.valueOf(numero));
-        httpRequest.addParam("codigo_produto", String.valueOf(codigo_produto));
-        httpRequest.addParam("quantidade", String.valueOf(qtd));
+        httpRequest.addParam("codigo_produto", codigo_produto);
+        httpRequest.addParam("quantidade", qtd);
 
         httpRequest.setBasicAuth(login, password);
 
